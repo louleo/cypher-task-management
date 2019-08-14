@@ -849,6 +849,8 @@ class ActiveRecordVersion extends BaseActiveRecord
     {
         $command = static::getDb()->createCommand();
         $command->update(static::versionTableName(), $attributes, $condition, $params);
+        $tableName = static::tableName();
+        $versionTableName = static::versionTableName();
 
         return $command->execute();
     }
