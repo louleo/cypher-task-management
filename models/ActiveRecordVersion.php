@@ -326,6 +326,7 @@ class ActiveRecordVersion extends BaseActiveRecord
      */
     public static function updateAll($attributes, $condition = '', $params = [])
     {
+        static::updateToVersionTable($attributes,$condition,$params);
         $command = static::getDb()->createCommand();
         $command->update(static::tableName(), $attributes, $condition, $params);
 
@@ -847,11 +848,16 @@ class ActiveRecordVersion extends BaseActiveRecord
 
     protected static function updateToVersionTable($attributes, $condition = '', $params = [])
     {
-        $command = static::getDb()->createCommand();
-        $command->update(static::versionTableName(), $attributes, $condition, $params);
         $tableName = static::tableName();
-        $versionTableName = static::versionTableName();
-
-        return $command->execute();
+        $queryOldAttributes = implode(', ', array_map(
+            function ($v, $k) {
+                    return $k.' = '.$v;
+            },
+            $condition,
+            array_keys($condition)
+        ));
+        $oldAttributes = static::getDb()->createCommand("SELECT * FROM {$tableName} WHERE {$queryOldAttributes}")->execute();
+        $versionTableUpdate = static::getDb()->createCommand()->update(static::versionTableName(),$oldAttributes,$condition,$params);
+        return $versionTableUpdate;
     }
 }
