@@ -1,11 +1,10 @@
 <?php
 
-use yii\db\Migration;
-
+//use yii\db\Migration;
 /**
  * Class m190815_062359_user_table
  */
-class m190815_062359_user_table extends VersionMigration
+class m190815_062359_user_table extends app\components\VersionedMigration
 {
     /**
      * {@inheritdoc}
@@ -13,12 +12,11 @@ class m190815_062359_user_table extends VersionMigration
     public function safeUp()
     {
         $this->createVersionTable('user',
-            array('id' => 'int NOT NULL AUTO_INCREMENT',
+            array('id' => 'pk',
                 'user_number' => 'varchar(255) NOT NULL',
                 'user_name' => 'varchar(255)',
                 'dob' => 'DATE NOT NULL',
                 'password' => 'varchar(255)',
-                'PRIMARYKEY'
             ));
     }
 
@@ -27,9 +25,7 @@ class m190815_062359_user_table extends VersionMigration
      */
     public function safeDown()
     {
-        echo "m190815_062359_user_table cannot be reverted.\n";
-
-        return false;
+        $this->dropVersionTable('user');
     }
 
     /*

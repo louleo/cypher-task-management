@@ -1,15 +1,18 @@
 <?php
 
 
-use yii\db\ColumnSchemaBuilder;
+namespace app\components;
 
-class VersionMigration extends \yii\db\Migration
+
+use \yii\db\ColumnSchemaBuilder;
+
+class VersionedMigration extends \yii\db\Migration
 {
     /**
      * Create a table with the standard columns.
      *
      * @param string $name
-     * @param array  $columns
+     * @param array $columns
      */
     protected function createVersionTable($name, array $columns)
     {
@@ -21,28 +24,28 @@ class VersionMigration extends \yii\db\Migration
                 'last_modified_date' => 'datetime not null default "1901-01-01 00:00:00"',
                 'created_user_id' => 'int unsigned not null default 1',
                 'created_date' => 'datetime not null default "1901-01-01 00:00:00"',
-                "constraint {$fk_prefix}_lmui_fk foreign key (last_modified_user_id) references user (id)",
-                "constraint {$fk_prefix}_cui_fk foreign key (created_user_id) references user (id)",
+//                "constraint {$fk_prefix}_lmui_fk foreign key (last_modified_user_id) references user (id)",
+//                "constraint {$fk_prefix}_cui_fk foreign key (created_user_id) references user (id)",
             )
         );
         $this->createTable($name, $columns, 'engine=InnoDB charset=utf8 collate=utf8_unicode_ci');
-            foreach ($columns as $n => &$column) {
-                if ($column == 'pk') {
-                    $column = 'integer not null';
-                }
-                if (preg_match('/^constraint/i', $column)) {
-                    unset($columns[$n]);
-                }
-                $column = str_ireplace(' unique', '', $column);
+        foreach ($columns as $n => &$column) {
+            if ($column == 'pk') {
+                $column = 'integer not null';
             }
-            $columns = array_merge(
-                $columns,
-                array(
-                    'version_date' => 'datetime not null',
-                    'version_id' => 'pk',
-                )
-            );
-            $this->createTable("{$name}_version", $columns, 'engine=InnoDB charset=utf8 collate=utf8_unicode_ci');
+            if (preg_match('/^constraint/i', $column)) {
+                unset($columns[$n]);
+            }
+            $column = str_ireplace(' unique', '', $column);
+        }
+        $columns = array_merge(
+            $columns,
+            array(
+                'version_date' => 'datetime not null',
+                'version_id' => 'pk',
+            )
+        );
+        $this->createTable("{$name}_version", $columns, 'engine=InnoDB charset=utf8 collate=utf8_unicode_ci');
     }
 
     /**
@@ -55,6 +58,7 @@ class VersionMigration extends \yii\db\Migration
         $this->dropTable("{$name}_version");
         $this->dropTable($name);
     }
+
     /**
      * Builds and executes a SQL statement for adding a new DB column.
      * @param string $table the table that the new column will be added to. The table name will be properly quoted by the method.
@@ -67,7 +71,7 @@ class VersionMigration extends \yii\db\Migration
     {
         $time = $this->beginCommand("add column $column $type to table $table");
         $this->db->createCommand()->addColumn($table, $column, $type)->execute();
-        $this->db->createCommand()->addColumn($table."_version",$column,$type)->execute();
+        $this->db->createCommand()->addColumn($table . "_version", $column, $type)->execute();
         if ($type instanceof ColumnSchemaBuilder && $type->comment !== null) {
             $this->db->createCommand()->addCommentOnColumn($table, $column, $type->comment)->execute();
             $this->db->createCommand()->addCommentOnColumn("{$table}_version", $column, $type->comment)->execute();
@@ -84,7 +88,7 @@ class VersionMigration extends \yii\db\Migration
     {
         $time = $this->beginCommand("drop column $column from table $table");
         $this->db->createCommand()->dropColumn($table, $column)->execute();
-        $this->db->createCommand()->dropColumn("{$table}_version",$column)->execute();
+        $this->db->createCommand()->dropColumn("{$table}_version", $column)->execute();
         $this->endCommand($time);
     }
 
