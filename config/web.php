@@ -43,6 +43,18 @@ $config = [
             ],
         ],
         'db' => $db,
+        'urlManager' => [
+            'class' => 'yii\web\UrlManager',
+            // Disable index.php
+            'showScriptName' => false,
+            // Disable r= routes
+            'enablePrettyUrl' => true,
+            'rules' => array(
+                '<controller:\w+>/<id:\d+>' => '<controller>/view',
+                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+            ),
+        ],
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -53,6 +65,14 @@ $config = [
         */
     ],
     'params' => $params,
+    'modules'=>[
+        'admin' => [
+            'class'=>'app\modules\admin\module'
+        ],
+        'user' => [
+            'class'=>'app\modules\admin\module'
+        ],
+    ],
 ];
 
 if (YII_ENV_DEV) {
