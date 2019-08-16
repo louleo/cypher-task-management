@@ -38,7 +38,7 @@ $config = [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'levels' => ['error', 'warning','trace'],
                 ],
             ],
         ],
@@ -69,9 +69,6 @@ $config = [
         'admin' => [
             'class'=>'app\modules\admin\module'
         ],
-        'user' => [
-            'class'=>'app\modules\admin\module'
-        ],
     ],
 ];
 
@@ -89,7 +86,7 @@ if (YII_ENV_DEV) {
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
         //'allowedIPs' => ['127.0.0.1', '::1'],
-        'allowedIPs'=>['172.17.0.1']
+        'allowedIPs'=>['127.0.0.1']
     ];
 }
 

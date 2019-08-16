@@ -20,12 +20,13 @@ class VersionedMigration extends \yii\db\Migration
         $columns = array_merge(
             $columns,
             array(
-                'last_modified_user_id' => 'int unsigned not null default 1',
+                'last_modified_user_id' => 'int(11) not null default 1',
                 'last_modified_date' => 'datetime not null default "1901-01-01 00:00:00"',
-                'created_user_id' => 'int unsigned not null default 1',
+                'created_user_id' => 'int(11) not null default 1',
                 'created_date' => 'datetime not null default "1901-01-01 00:00:00"',
-//                "constraint {$fk_prefix}_lmui_fk foreign key (last_modified_user_id) references user (id)",
-//                "constraint {$fk_prefix}_cui_fk foreign key (created_user_id) references user (id)",
+                'active' => 'tinyint(1) unsigned not null default 1',
+                "constraint {$fk_prefix}_lmui_fk foreign key (last_modified_user_id) references user (id)",
+                "constraint {$fk_prefix}_cui_fk foreign key (created_user_id) references user (id)",
             )
         );
         $this->createTable($name, $columns, 'engine=InnoDB charset=utf8 collate=utf8_unicode_ci');

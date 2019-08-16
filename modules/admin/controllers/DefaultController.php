@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\User;
 use yii\web\Controller;
 
 /**
@@ -17,4 +18,5 @@ class DefaultController extends Controller
     {
         return $this->render('index');
     }
+
 }
