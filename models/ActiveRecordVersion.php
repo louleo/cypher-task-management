@@ -144,13 +144,13 @@ class ActiveRecordVersion extends ActiveRecord
     }
 
     public function beforesave($insert){
-        $this->last_modified_user_id = Yii::$app->getUser()->id;
+        $this->last_modified_user_id = Yii::$app->user->id;
         $this->last_modified_date = date('Y-m-d H:i:s');
-        if (!isset($this->creted_date)){
+        if (!isset($this->creted_date) || empty($this->created_date)){
             $this->created_date = date('Y-m-d H:i:s');
         }
-        if (!isset($this->created_user_id)){
-            $this->created_user_id = Yii::$app->getUser()->id;
+        if (!isset($this->created_user_id) || empty($this->created_user_id)){
+            $this->created_user_id = Yii::$app->user->id;
         }
         return parent::beforeSave($insert);
     }

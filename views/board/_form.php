@@ -16,14 +16,6 @@ use yii\widgets\ActiveForm;
 
 <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-<?= $form->field($model, 'last_modified_user_id')->textInput() ?>
-
-<?= $form->field($model, 'last_modified_date')->textInput() ?>
-
-<?= $form->field($model, 'created_user_id')->textInput() ?>
-
-<?= $form->field($model, 'created_date')->textInput() ?>
-
 <?= $form->field($model, 'active')->checkbox() ?>
 
     <div class="form-group">

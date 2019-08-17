@@ -57,12 +57,11 @@ class BoardController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Board::find(),
-        ]);
+        $defaultBoard = Board::getDefaultBoard(Yii::$app->user->id);
 
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
+
+        return $this->render('view', [
+            'board' => $defaultBoard,
         ]);
     }
 
@@ -75,7 +74,7 @@ class BoardController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'board' => $this->findModel($id),
         ]);
     }
 
