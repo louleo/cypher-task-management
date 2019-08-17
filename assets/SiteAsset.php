@@ -16,16 +16,12 @@ use yii\web\View;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class AppAsset extends AssetBundle
+class SiteAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/app.css',
-    ];
-    public $js = [
-        'js/angular.js',
-//        'js/jquery-3.4.1.min.js'
+        'css/site.css',
     ];
     public $depends = [
         'yii\web\YiiAsset',

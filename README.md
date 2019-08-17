@@ -25,5 +25,7 @@
 15. `GRANT ALL PRIVILEGES ON cypher.* TO cypher;`
 16. `FLUSH PRIVILEGES；`
 17. Change the apache2 server virtual host file and port.conf. Create start.sh file and then `chmod +x start.sh`
+18. Configure MariaDB conf, `vi /etc/mysql/my.cnf` and add `[mysqld] --skip-networking=0 --skip-bind-address` to allow user to access docker mysql database through tcp protocol.
+Ref: https://mariadb.com/kb/en/library/configuring-mariadb-for-remote-client-access/
 
 # Cypher Deployment Setup

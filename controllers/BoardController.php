@@ -3,19 +3,17 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\User;
+use app\models\Board;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
-use yii\filters\AccessRule;
 use yii\web\Controller;
-use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * UserController implements the CRUD actions for User model.
+ * BoardController implements the CRUD actions for Board model.
  */
-class UserController extends Controller
+class BoardController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -50,18 +48,17 @@ class UserController extends Controller
                         'roles'=>['@']
                     ],
                 ],
-            ]
-        ];
+            ]        ];
     }
 
     /**
-     * Lists all User models.
+     * Lists all Board models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => User::find(),
+            'query' => Board::find(),
         ]);
 
         return $this->render('index', [
@@ -70,31 +67,26 @@ class UserController extends Controller
     }
 
     /**
-     * Displays a single User model.
+     * Displays a single Board model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-        if (Yii::$app->user->can('admin') || Yii::$app->user->id == $id){
-            return $this->render('view', [
-                'model' => $this->findModel($id),
-            ]);
-        }else{
-            throw new HttpException(403,'You are not allowed to perform this action.');
-        }
-
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
     }
 
     /**
-     * Creates a new User model.
+     * Creates a new Board model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new User();
+        $model = new Board();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -106,7 +98,7 @@ class UserController extends Controller
     }
 
     /**
-     * Updates an existing User model.
+     * Updates an existing Board model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -114,30 +106,19 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
-        if (Yii::$app->user->id == $id || Yii::$app->user->can('admin')){
-            $model = $this->findModel($id);
+        $model = $this->findModel($id);
 
-            if (isset($_POST['User']) && !empty($_POST['User'])){
-                $model->user_name = $_POST['User']['user_name'];
-                $model->user_number = $_POST['User']['user_number'];
-                $model->password = password_hash($_POST['User']['password'],1);
-                $model->dob = $_POST['User']['dob'];
-                $model->active = $_POST['User']['active'];
-                if ($model->save()){
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
-            }
-
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }else{
-            throw new HttpException(403,'You are not allowed to perform this action.');
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Deletes an existing User model.
+     * Deletes an existing Board model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -145,21 +126,21 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->deactivate();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the User model based on its primary key value.
+     * Finds the Board model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return User the loaded model
+     * @return Board the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = User::findOne($id)) !== null) {
+        if (($model = Board::findOne($id)) !== null) {
             return $model;
         }
 

@@ -8,9 +8,9 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
-use app\assets\AppAsset;
+use app\assets\SiteAsset;
 
-AppAsset::register($this);
+SiteAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -32,7 +32,7 @@ AppAsset::register($this);
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar-inverse navbar-fixed-top site-header',
         ],
     ]);
     echo Nav::widget([
@@ -57,27 +57,14 @@ AppAsset::register($this);
     ]);
     NavBar::end();
     ?>
-    <div class="container-fluid" style="padding-top: 50px;">
-        <div class="row">
-            <div class="col-sm-2">
-                <div>
 
-                </div>
-            </div>
-            <div class="col-sm-10">
-                <div class="container-fluid">
-                    <?= $content ?>
-                </div>
-            </div>
-        </div>
+    <div class="container">
+        <?= $content ?>
     </div>
 </div>
 
-
-
-
 <footer class="footer">
-    <div class="container-fluid">
+    <div class="container">
         <p class="pull-left">&copy; Cypher Pty. Ltd. <?= date('Y') ?></p>
 
     </div>

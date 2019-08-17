@@ -149,9 +149,19 @@ class ActiveRecordVersion extends ActiveRecord
         if (!isset($this->creted_date)){
             $this->created_date = date('Y-m-d H:i:s');
         }
-        if (!isset($this->created_user_id){
+        if (!isset($this->created_user_id)){
             $this->created_user_id = Yii::$app->getUser()->id;
         }
         return parent::beforeSave($insert);
+    }
+
+    public function deactivate(){
+        if ($this->active == 1){
+            $this->active = 0;
+            $this->save();
+        }else{
+            $this->active = 1;
+            $this->save();
+        }
     }
 }

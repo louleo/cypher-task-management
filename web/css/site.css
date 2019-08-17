@@ -113,3 +113,39 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+/*nav.site-header{*/
+/*    background: rgba(0, 0, 0, 0.85);*/
+/*}*/
+
+/*nav.site-header > div.container{*/
+/*    height: 100px;*/
+/*}*/
+
+/*nav.site-header div.navbar-header{*/
+/*    height: 100%;*/
+/*}*/
+/*nav.site-header  a.navbar-brand{*/
+/*    height: 100%;*/
+/*}*/
+
+/*nav.site-header  ul.navbar-nav{*/
+/*    height: 100px;*/
+/*}*/
+
+/*nav.site-header ul.navbar-nav li{*/
+/*    height: 100%;*/
+/*}*/
+
+/*nav.site-header ul.navbar-nav li a{*/
+/*    height: 100%;*/
+/*}*/
+
+/*nav.site-header ul.navbar-nav li.active a{*/
+/*    color: #000;*/
+/*    background-color: #fff;*/
+/*}*/
+
+/*nav.site-header ul.navbar-nav li a:hover{*/
+
+/*}*/

@@ -12,6 +12,8 @@ use app\models\ContactForm;
 
 class SiteController extends Controller
 {
+
+    public $layout = 'site';
     /**
      * {@inheritdoc}
      */
@@ -124,5 +126,9 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionDevelopment(){
+        return $this->render('development');
     }
 }
