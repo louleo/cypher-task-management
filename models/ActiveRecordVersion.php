@@ -91,7 +91,7 @@ class ActiveRecordVersion extends ActiveRecord
     }
 
     public static function versionTableName(){
-        return '{{%' . Inflector::camel2id(StringHelper::basename(get_called_class()), '_') . '_version}}';
+        return substr(self::tableName(),0,-2).'_version}}';
     }
     /**
      * Inserts an ActiveRecord into DB without considering transaction.

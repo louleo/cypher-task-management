@@ -29,6 +29,11 @@ class BoardList extends \app\models\ActiveRecordVersion
         return 'list';
     }
 
+    public static function versionTableName()
+    {
+        return 'list_version';
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -67,5 +72,13 @@ class BoardList extends \app\models\ActiveRecordVersion
     public function getBoard()
     {
         return $this->hasOne(Board::className(), ['id' => 'board_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCards()
+    {
+        return $this->hasMany(Card::className(), ['list_id' => 'id']);
     }
 }

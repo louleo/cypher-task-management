@@ -14,6 +14,26 @@ $this->title = $board->name;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <div class="board-board">
+        <?php
+            foreach ($board->lists as $list){
+                ?>
+                <div class="board-list">
+                    <?php
+                        foreach ($list->cards as $card){
+                            ?>
+                    <div class="board-list-card">
+                        <?=$card->title?>
+                    </div>
+                    <?php
+                        }
+                    ?>
+                    <div class="board-list-card">
+                        <button>Add New Card</button>
+                    </div>
+                </div>
+                <?php
+            }
+        ?>
         <div class="board-list">
             <button>Add New List</button>
         </div>
@@ -21,3 +41,8 @@ $this->title = $board->name;
 
 
 </div>
+
+
+<script>
+
+</script>

@@ -99,4 +99,12 @@ class Board extends \app\models\ActiveRecordVersion
         }
         return false;
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLists()
+    {
+        return $this->hasMany(BoardList::className(), ['board_id' => 'id']);
+    }
 }
