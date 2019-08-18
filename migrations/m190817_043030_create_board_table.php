@@ -16,11 +16,13 @@ class m190817_043030_create_board_table extends \app\components\VersionedMigrati
             'id' => $this->primaryKey(),
             'name' => 'varchar(255) not null',
             'description' => 'text',
+            'code'=> 'varchar(20) not null'
         ]);
         $this->createVersionTable('board_user_assign',[
             'id'=>$this->primaryKey(),
             'user_id'=>'int(11) not null',
             'board_id'=>'int(11) not null',
+            'is_admin'=>'tinyint(1) not null default 0',
         ]);
 
         $this->addForeignKey('fk_board_user_user_id','board_user_assign','user_id','user','id');

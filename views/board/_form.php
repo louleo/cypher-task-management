@@ -14,6 +14,8 @@ use yii\widgets\ActiveForm;
 
 <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
+<?= $form->field($model, 'code')->textInput(['maxlength' => 20]) ?>
+
 <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
 <?= $form->field($model, 'active')->checkbox() ?>
