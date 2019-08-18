@@ -27,46 +27,43 @@ SiteAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top site-header',
-        ],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
-    ]);
-    NavBar::end();
-    ?>
+    <nav class="navbar navbar-expand-lg navbar-dark site-navbar-custom fixed-top">
+        <div class="container-fluid" style="padding: 0;">
+            <a class="navbar-brand" href="#" style="font-size: 2em;">Cypher</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto" style="text-align: center;">
+                    <li class="nav-item">
+                        <a class="nav-link site-button-a site-draw" href="#">Enquiries</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link site-button-a site-draw" href="#">Application Development</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link site-button-a site-draw" href="#">Products And Service</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link site-button-a site-draw" href="#">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link site-button-a site-draw" href="#">Log In</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-    <div class="container">
+
+    <div class="container-fluid">
         <?= $content ?>
     </div>
 </div>
 
-<footer class="footer">
+<footer class="py-5" style="background-color: black;">
     <div class="container">
-        <p class="pull-left">&copy; Cypher Pty. Ltd. <?= date('Y') ?></p>
-
+        <p class="m-0 text-center text-white small" style="font-size: 1em;">Copyright &copy; Cypher Pty. Ltd. 2019</p>
     </div>
 </footer>
 
