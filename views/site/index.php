@@ -96,7 +96,7 @@ $this->title = 'Cypher';
                     <p>In sizing a budget for your digital initiative or transformation we’ll talk through your
                         strategic opportunities, technology options and delivery timeframe. As a guide, please review
                         our typical budgets for winning product or platform deliveries.</p>
-                    <p>Every journey is unique, <a href="/site/enquiries/" style="color: #00ddff; font-size: 1.5em; font-weight: 700;">contact us</a>&nbsp;and <strong>let’s build your
+                    <p>Every journey is unique, <a href="/site/contact/" style="color: #00ddff; font-size: 1.5em; font-weight: 700;">contact us</a>&nbsp;and <strong>let’s build your
                             best digital future</strong>.</p></div>
         </div>
     </div>
