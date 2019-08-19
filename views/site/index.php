@@ -26,7 +26,7 @@ $this->title = 'Cypher';
                         the future you want to see. Build the right thing, and build it right, by partnering with
                         award-winning experts in web application &amp; platform development.
                     </div>
-                    <a href="https://agiledigital.com.au/software-development/" class="site-btn"> <span>More about Application Development</span>
+                    <a href="#" class="site-btn"> <span>More about Application Development</span>
                     </a>
                 </div>
             </div>
@@ -39,7 +39,7 @@ $this->title = 'Cypher';
                         development, delivery &amp; operation of large-scale cloud-native platforms to help ensure your
                         digital future is the best one.
                     </div>
-                    <a href="https://agiledigital.com.au/cloud-services/" class="site-btn"> <span>More about Product and Support</span>
+                    <a href="#" class="site-btn"> <span>More about Product and Support</span>
                     </a>
                 </div>
             </div>
