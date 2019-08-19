@@ -61,6 +61,9 @@ header.site-masthead {
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
 }
 
@@ -114,18 +117,6 @@ header.site-masthead .site-bg-circle-4 {
     right: 35%;
 }
 
-@media (min-width: 992px) {
-    header.site-masthead {
-        padding-top: calc(17rem + 100px);
-        padding-bottom: 10rem;
-    }
-    header.site-masthead .site-masthead-content .site-masthead-heading {
-        font-size: 6rem;
-    }
-    header.site-masthead .site-masthead-content .site-masthead-subheading {
-        font-size: 3rem;
-    }
-}
 
 .site-bg-primary {
     background-color: #ee0979 !important;
@@ -216,4 +207,107 @@ header.site-masthead .site-bg-circle-4 {
 li.active a{
     color: #000;
     background-color:#fff;
+}
+
+a.site-btn{
+    font-size: 1.5em;
+    color: white;
+    border: 1px solid white;
+    padding: 0.3em 0.6em;
+    text-decoration: none;
+    transition: background-color 1s;
+}
+
+a.site-btn:hover{
+    color: #007bff;
+    background-color: #fff;
+    text-decoration: none;
+}
+
+div.site-entry-content{
+    margin-top: 1em;
+    margin-bottom: 1em;
+    font-size: 1.5em;
+}
+
+.site-bg-blue-smoke{
+    background-image: url("../img/bg-blue.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;}
+
+.site-bg-grey-smoke{
+    background-image: url("../img/bg-grey.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;}
+.site-bg-blue-poly{
+    background-image: url("../img/bg-bluepoly.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;}
+
+header.site-masthead-about {
+    position: relative;
+    overflow: hidden;
+    padding-top: calc(11rem + 100px);
+    padding-bottom: 3rem;
+    /*background: -webkit-gradient(linear, left bottom, left top, from(#ff6a00), to(#ee0979));*/
+    /*background: linear-gradient(0deg, #ff6a00 0%, #ee0979 100%);*/
+    background-image: url("../img/canberra.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;}
+
+header.site-masthead-about .site-masthead-content {
+    z-index: 1;
+    position: relative;
+}
+
+header.site-masthead-about .site-masthead-content .site-masthead-heading {
+    font-size: 4rem;
+}
+
+header.site-masthead-about .site-masthead-content .site-masthead-subheading {
+    font-size: 1.5rem;
+}
+
+
+@media (min-width: 992px) {
+    header.site-masthead {
+        padding-top: calc(17rem + 100px);
+        padding-bottom: 10rem;
+    }
+    header.site-masthead .site-masthead-content .site-masthead-heading {
+        font-size: 6rem;
+    }
+    header.site-masthead .site-masthead-content .site-masthead-subheading {
+        font-size: 3rem;
+    }
+    header.site-masthead-about {
+        padding-top: calc(17rem + 100px);
+        padding-bottom: 10rem;
+    }
+    header.site-masthead-about .site-masthead-content .site-masthead-heading {
+        font-size: 6rem;
+    }
+    header.site-masthead-about .site-masthead-content .site-masthead-subheading {
+        font-size: 3rem;
+    }
 }

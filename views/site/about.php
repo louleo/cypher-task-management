@@ -6,11 +6,11 @@ use yii\helpers\Html;
 
 $this->title = 'About';
 ?>
-<div class="site-about">
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <div>
-        Cypher is an emerging technology company which provide high-quality IT solutions the worldwide.
+<header class="site-masthead-about text-center text-white">
+    <div class="site-masthead-content">
+        <div class="container">
+            <h2 class="site-masthead-subheading mb-0" style="text-align: left;">Create a better future with
+                award-winning experts in digital strategy &amp; agile software delivery.</h2>
+        </div>
     </div>
-
-</div>
+</header>

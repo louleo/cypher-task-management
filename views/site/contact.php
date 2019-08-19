@@ -8,9 +8,19 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
 
-$this->title = 'Contact';
+$this->title = 'Enquiries';
 ?>
-<div class="site-contact">
+
+<header class="site-masthead text-center text-white" style="background-image: url('/img/bg-blue.png');">
+    <div class="site-masthead-content">
+        <div class="container">
+            <h2 class="site-masthead-subheading mb-0" style="text-align: left;color: #fff;">
+                Whether you’re embarking on complex or high-stakes software development, or looking to transform your digital capability, contact us today to discuss how we can help. We’d love to hear from you.</h2>
+        </div>
+    </div>
+</header>
+
+<div class="site-contact" style="width: 50%;margin: auto; min-width: 300px;padding-top:3em;padding-bottom: 5em;">
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php if (Yii::$app->session->hasFlash('contactFormSubmitted')): ?>
@@ -38,7 +48,7 @@ $this->title = 'Contact';
         </p>
 
         <div class="row">
-            <div class="col-lg-5">
+            <div class="col-lg-12">
 
                 <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
 
@@ -54,8 +64,8 @@ $this->title = 'Contact';
                         'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
                     ]) ?>
 
-                    <div class="form-group">
-                        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+                    <div class="form-group" style="text-align: center;">
+                        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button','style'=>'width:60%;']) ?>
                     </div>
 
                 <?php ActiveForm::end(); ?>
