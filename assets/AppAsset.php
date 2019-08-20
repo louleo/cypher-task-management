@@ -22,14 +22,17 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/app.css',
+        'css/bootstrap.css'
     ];
     public $js = [
         'js/angular.js',
+        'js/bootstrap.min.js',
+        'js/popper.min.js',
 //        'js/jquery-3.4.1.min.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
+//        'yii\bootstrap\BootstrapAsset',
     ];
     //must be placed so that JS file will be placed in the header tag
     public  $jsOptions =

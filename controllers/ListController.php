@@ -93,9 +93,11 @@ class ListController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        return $this->render('create', [
+        $output = $this->renderPartial('create', [
             'model' => $model,
         ]);
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return ['html'=>$output,'title'=>'Create New List'];
     }
 
     /**

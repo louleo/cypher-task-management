@@ -8,9 +8,47 @@ body {
     border-top: 1px solid #ddd;
     padding-top: 20px;
 }
-.wrap{
+.wrap {
     min-height: 100%;
     height: auto;
     margin: 0 auto -60px;
     padding: 0 0 60px;
+}
+
+.wrap > .container {
+    padding: 70px 15px 20px;
+}
+
+.site-btn-xl {
+    text-transform: uppercase;
+    padding: 1.5rem 3rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+}
+
+.site-bg-black {
+    background-color: #000 !important;
+}
+
+.site-rounded-pill {
+    border-radius: 5rem;
+}
+
+.site-navbar-custom {
+    background-color: #000;
+}
+
+.site-navbar-custom .site-navbar-brand {
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+    font-weight: 700;
+}
+
+.site-navbar-custom .site-navbar-nav .site-nav-item .site-nav-link {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1rem;
 }

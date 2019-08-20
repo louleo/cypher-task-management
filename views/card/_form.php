@@ -12,11 +12,11 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'list_id')->textInput() ?>
+    <?= $form->field($model, 'list_id')->hiddenInput()->label(false) ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'code')->hiddenInput(['maxlength' => true])->label(false) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
@@ -26,17 +26,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'end_date')->textInput() ?>
 
-    <?= $form->field($model, 'total_used_time')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'last_modified_user_id')->textInput() ?>
-
-    <?= $form->field($model, 'last_modified_date')->textInput() ?>
-
-    <?= $form->field($model, 'created_user_id')->textInput() ?>
-
-    <?= $form->field($model, 'created_date')->textInput() ?>
-
-    <?= $form->field($model, 'active')->textInput() ?>
+    <?= $form->field($model, 'total_used_time')->hiddenInput(['maxlength' => true])->label(false) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

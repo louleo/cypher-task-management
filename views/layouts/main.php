@@ -27,44 +27,36 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
-    ]);
-    NavBar::end();
-    ?>
-    <div class="container-fluid" style="padding-top: 50px;">
-        <div class="row">
-            <div class="col-sm-2">
-                <div>
-
-                </div>
+    <nav class="navbar navbar-expand-lg navbar-dark site-navbar-custom fixed-top">
+        <div class="container-fluid" style="padding: 0;">
+            <a class="navbar-brand" href="/board/" style="font-size: 1.5em;">Cypher</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto" style="text-align: center;">
+                    <li class="nav-item">
+                        <a class="nav-link" style="padding: 14px" href="/site/index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="padding: 14px" href="/board/">Board</a>
+                    </li>
+                    <li class="nav-item">
+                        <?=Yii::$app->user->isGuest? '<a class="nav-link" href="/site/login">Log In</a>':Html::beginForm(['/site/logout'], 'post')
+                        . Html::submitButton(
+                            'Logout (' . Yii::$app->user->identity->username . ')',
+                            ['class' => 'btn btn-link logout', 'style'=>'padding:14px;']
+                        )
+                        . Html::endForm();?>
+                    </li>
+                </ul>
             </div>
-            <div class="col-sm-10">
+        </div>
+    </nav>
+
+    <div class="container-fluid" style="padding-top: 6em;">
+        <div class="row">
+            <div class="col-sm-12">
                 <div class="container-fluid">
                     <?= $content ?>
                 </div>
@@ -72,8 +64,6 @@ AppAsset::register($this);
         </div>
     </div>
 </div>
-
-
 
 
 <footer class="footer">
