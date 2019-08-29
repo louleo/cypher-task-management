@@ -85,7 +85,7 @@ a.board-list-header-edit{
 <div class="board-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
+    <input type="hidden" id="global-board-code" value="<?=$board->code;?>">
     <div class="board-board">
         <?php
             foreach ($board->lists as $list){
@@ -188,13 +188,16 @@ a.board-list-header-edit{
         });
     });
     $('.js-board-list-create-card').on('click',function () {
+        let list_id = $(this).data('list-id');
         $.ajax({
-            url:'/card/create',
+            url:'/card/create-template',
             method:'GET',
             success:function (data) {
                 $('#create-modal-content').html(data.html);
                 $('#create-modal-label').html(data.title);
                 $('#board-create').modal({show:true});
+                $('#card-list_id').val(list_id);
+                $('#card-code').val($('#global-board-code').val()+'-'+($('.js-board-list-card').length+1).toString());
             }
         });
     });

@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Card;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -24,6 +25,29 @@ class CardController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => [
+                            'index',
+                            'create',
+                            'delete',
+                        ],
+                        'roles' => ['admin'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=>[
+                            'view',
+                            'update',
+                            'create-template',
+                        ],
+                        'roles'=>['@']
+                    ],
                 ],
             ],
         ];
@@ -68,15 +92,37 @@ class CardController extends Controller
     public function actionCreate()
     {
         $model = new Card();
+        $successful = false;
+        $data = null;
+        if ($model->load(Yii::$app->request->post())) {
+            try{
+                $successful = $model->validate();
+            } catch (\Exception $e){
+                $data = $e->getMessage();
+            }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if ($successful){
+                $model->save();
+            }
         }
+
+
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        return ['flag'=>$successful,'data'=>$data];
+
+    }
+
+
+    public function actionCreateTemplate(){
+        $model = new Card();
 
         $output = $this->renderPartial('create', [
             'model' => $model,
         ]);
+
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
         return ['html'=>$output,'title'=>'Create New Card'];
     }
 
@@ -129,4 +175,5 @@ class CardController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
 }

@@ -22,12 +22,16 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/app.css',
-        'css/bootstrap.css'
+        'css/bootstrap.css',
+        'css/jquery-ui.min.css',
+        'css/jquery-ui,structure.min.css',
+        'css/jquery-ui.theme.min.css',
     ];
     public $js = [
         'js/angular.js',
         'js/bootstrap.min.js',
         'js/popper.min.js',
+        'js/jquery-ui.min.js',
 //        'js/jquery-3.4.1.min.js'
     ];
     public $depends = [

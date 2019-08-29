@@ -23,6 +23,9 @@ class SiteAsset extends AssetBundle
     public $css = [
         'css/site.css',
         'css/bootstrap.css',
+        'css/jquery-ui.min.css',
+        'css/jquery-ui,structure.min.css',
+        'css/jquery-ui.theme.min.css',
     ];
     public $depends = [
         'yii\web\YiiAsset',
@@ -31,6 +34,7 @@ class SiteAsset extends AssetBundle
     public $js = [
         'js/bootstrap.min.js',
         'js/popper.min.js',
+        'js/jquery-ui.min.js'
     ];
     //must be placed so that JS file will be placed in the header tag
     public  $jsOptions =
