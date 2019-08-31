@@ -105,6 +105,6 @@ class Board extends \app\models\ActiveRecordVersion
      */
     public function getLists()
     {
-        return $this->hasMany(BoardList::className(), ['board_id' => 'id']);
+        return $this->hasMany(BoardList::className(), ['board_id' => 'id'])->orderBy(['order'=>SORT_ASC]);
     }
 }

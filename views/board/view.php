@@ -100,14 +100,14 @@ a.board-list-header-edit{
                             <?php
                             foreach ($list->cards as $card){
                                 ?>
-                                <a class="board-list-card js-board-list-card" data-card-id="<?=$card->id;?>">
+                                <a class="board-list-card js-board-list-card" data-card-id="<?=$card->id;?>" href="/card/view/<?=$card->id;?>">
                                     <?=$card->title?>
                                 </a>
                                 <?php
                             }
                             ?>
                         </div>
-                        <a class="board-add-card js-board-list-create-card" data-list-id="<?=$list->id?>">
+                        <a class="board-add-card js-board-list-create-card" data-list-id="<?=$list->id?>" data-href="/card/create/?list_id=<?=$list->id;?>">
                             <span>+</span>
                             <span>Add a new card</span>
                         </a>
@@ -118,7 +118,7 @@ a.board-list-header-edit{
         ?>
         <div class="board-list-wrapper">
             <div class="board-list">
-                <a class="board-add-card js-board-create-list">
+                <a class="board-add-card js-board-create-list" href="/list/create/?board_id=<?=$board->id;?>">
                     <span>+</span>
                     <span>Add a new list</span>
                 </a>
@@ -164,41 +164,47 @@ a.board-list-header-edit{
 </div>
 
 <script>
-    $('.js-board-list-card').on('click',function () {
-        let cardId = $(this).data('card-id');
-        $.ajax({
-            url:'/card/view/'+cardId,
-            method:'GET',
-            success:function (data) {
-                $('#card-modal-content').html(data.html);
-                $('#cardModalLabel').html(data.code);
-                $('#board-card-view').modal({show:true});
-            }
-        });
-    });
-    $('.js-board-create-list').on('click',function(){
-        $.ajax({
-            url:'/list/create',
-            method:'GET',
-            success:function (data) {
-                $('#create-modal-content').html(data.html);
-                $('#create-modal-label').html(data.title);
-                $('#board-create').modal({show:true});
-            }
-        });
-    });
+    // $('.js-board-list-card').on('click',function () {
+    //     let cardId = $(this).data('card-id');
+    //     $.ajax({
+    //         url:'/card/view/'+cardId,
+    //         method:'GET',
+    //         success:function (data) {
+    //             $('#card-modal-content').html(data.html);
+    //             $('#cardModalLabel').html(data.code);
+    //             $('#board-card-view').modal({show:true});
+    //         }
+    //     });
+    // });
+    // $('.js-board-create-list').on('click',function(){
+    //     $.ajax({
+    //         url:'/list/create',
+    //         method:'GET',
+    //         success:function (data) {
+    //             $('#create-modal-content').html(data.html);
+    //             $('#create-modal-label').html(data.title);
+    //             $('#board-create').modal({show:true});
+    //         }
+    //     });
+    // });
+    // $('.js-board-list-create-card').on('click',function () {
+    //     let list_id = $(this).data('list-id');
+    //     $.ajax({
+    //         url:'/card/create-template',
+    //         method:'GET',
+    //         success:function (data) {
+    //             $('#create-modal-content').html(data.html);
+    //             $('#create-modal-label').html(data.title);
+    //             $('#board-create').modal({show:true});
+    //             $('#card-list_id').val(list_id);
+    //             $('#card-code').val($('#global-board-code').val()+'-'+($('.js-board-list-card').length+1).toString());
+    //         }
+    //     });
+    // });
+
     $('.js-board-list-create-card').on('click',function () {
-        let list_id = $(this).data('list-id');
-        $.ajax({
-            url:'/card/create-template',
-            method:'GET',
-            success:function (data) {
-                $('#create-modal-content').html(data.html);
-                $('#create-modal-label').html(data.title);
-                $('#board-create').modal({show:true});
-                $('#card-list_id').val(list_id);
-                $('#card-code').val($('#global-board-code').val()+'-'+($('.js-board-list-card').length+1).toString());
-            }
-        });
+       let board_code = $('#global-board-code').val();
+       board_code += '-'+($('.js-board-list-card').length+1).toString();
+       window.location.href = $(this).data('href')+'&code='+board_code;
     });
 </script>

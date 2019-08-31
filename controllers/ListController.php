@@ -89,15 +89,29 @@ class ListController extends Controller
     {
         $model = new BoardList();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $board_id = Yii::$app->request->get('board_id');
+
+        if (isset($board_id)){
+            $model->board_id = $board_id;
         }
 
-        $output = $this->renderPartial('create', [
-            'model' => $model,
-        ]);
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        return ['html'=>$output,'title'=>'Create New List'];
+        if (isset($model->board_id)){
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+            return $this->render('create',['model'=>$model]);
+        }else{
+            $this->redirect('/board/index');
+        }
+
+//
+//        $output = $this->renderPartial('create', [
+//            'model' => $model,
+//        ]);
+//        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+//        return ['html'=>$output,'title'=>'Create New List'];
+
+
     }
 
     /**

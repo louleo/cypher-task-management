@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\BoardList;
 use Yii;
 use app\models\Card;
 use yii\data\ActiveDataProvider;
@@ -77,11 +78,12 @@ class CardController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-         $output = $this->renderPartial('view', [
-            'model' => $model,
-        ]);
-         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-         return ['html'=>$output,'code'=>$model->code];
+//         $output = $this->renderPartial('view', [
+//            'model' => $model,
+//        ]);
+//         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+//         return ['html'=>$output,'code'=>$model->code];
+        return $this->render('view',['model'=>$model]);
     }
 
     /**
@@ -92,25 +94,44 @@ class CardController extends Controller
     public function actionCreate()
     {
         $model = new Card();
-        $successful = false;
-        $data = null;
-        if ($model->load(Yii::$app->request->post())) {
-            try{
-                $successful = $model->validate();
-            } catch (\Exception $e){
-                $data = $e->getMessage();
-            }
+//        $successful = false;
+//        $data = null;
+//        if ($model->load(Yii::$app->request->post())) {
+//            try{
+//                $successful = $model->validate();
+//            } catch (\Exception $e){
+//                $data = $e->getMessage();
+//            }
+//
+//            if ($successful){
+//                $model->save();
+//            }
+//        }
+//
+//
+//        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+//
+//        return ['flag'=>$successful,'data'=>$data];
+        $list_id = Yii::$app->request->get('list_id');
 
-            if ($successful){
-                $model->save();
-            }
+        if (isset($list_id)){
+            $model->list_id = $list_id;
         }
 
+        $code = Yii::$app->request->get('code');
 
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        if (isset($code)){
+            $model->code = $code;
+        }
 
-        return ['flag'=>$successful,'data'=>$data];
-
+        if (isset($model->code) && isset($model->list_id)){
+            if ($model->load(Yii::$app->request->post()) && $model->save()){
+                return $this->redirect(['board/view', 'id' => $model->list->board_id]);
+            }
+            return $this->render('create',['model'=>$model]);
+        }else{
+            $this->redirect('/board/index');
+        }
     }
 
 
