@@ -12,7 +12,7 @@ $this->title = $board->name;
 <style>
 div.board-list-wrapper{
     width: 272px;
-    margin: 0 4px;
+    margin: .5rem 4px;
     margin-left: 4px;
     height: 100%;
     box-sizing: border-box;

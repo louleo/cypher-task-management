@@ -36,10 +36,10 @@ AppAsset::register($this);
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto" style="text-align: center;">
                     <li class="nav-item">
-                        <a class="nav-link" style="padding: 14px" href="/site/index">Home</a>
+                        <a class="nav-link" style="padding: 14px" href="/board/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="padding: 14px" href="/board/">Board</a>
+                        <a class="nav-link" style="padding: 14px" href="/board/lists">Board</a>
                     </li>
                     <li class="nav-item">
                         <?=Yii::$app->user->isGuest? '<a class="nav-link" href="/site/login">Log In</a>':Html::beginForm(['/site/logout'], 'post')

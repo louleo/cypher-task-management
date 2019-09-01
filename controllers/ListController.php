@@ -97,7 +97,7 @@ class ListController extends Controller
 
         if (isset($model->board_id)){
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+               return $this->redirect('/board/view/'.$model->board_id);
             }
             return $this->render('create',['model'=>$model]);
         }else{
@@ -126,7 +126,7 @@ class ListController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            $this->redirect('/board/view/'.$model->board_id);
         }
 
         return $this->render('update', [
@@ -143,7 +143,7 @@ class ListController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($id)->deactivate();
 
         return $this->redirect(['index']);
     }

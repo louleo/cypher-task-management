@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\BoardList;
 use app\models\BoardUserAssign;
 use Yii;
 use app\models\Board;
@@ -45,6 +46,7 @@ class BoardController extends Controller
                         'actions'=>[
                             'view',
                             'update',
+                            'lists',
                         ],
                         'roles'=>['@']
                     ],
@@ -145,7 +147,7 @@ class BoardController extends Controller
      */
     public function actionDelete($id)
     {
-//        $this->findModel($id)->delete();
+        $this->findModel($id)->deactivate();
 
         return $this->redirect(['index']);
     }
@@ -165,4 +167,13 @@ class BoardController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionLists(){
+        $dataProvider = new ActiveDataProvider([
+            'query' => Board::find(),
+        ]);
+
+        return $this->render('lists', [
+            'dataProvider' => $dataProvider,
+        ]);    }
 }

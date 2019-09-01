@@ -13,37 +13,73 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="card-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="container card-view-container" >
+        <h1><?= Html::encode($this->title) ?></h1>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="container-fluid">
+                    <div class="row">
+                        <h3>Description</h3>
+                        <div class="container-fluid" style="min-height: 200px;">
+                            <?=$model->description;?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h3>Comments</h3>
+                        <div class="container-fluid">
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="container-fluid">
+                    <div class="row">
+                        <h4>Assign to</h4>
+                    </div>
+                    <div class="row">
+                        <h4>Start Date</h4>
+                    </div>
+                    <div class="row">
+                        <h4>Due Date</h4>
+                    </div>
+                    <div class="row">
+                        <h4>End Date</h4>
+                    </div>
+                    <div class="row">
+                        <h4>Creator</h4>
+                        <div class="container-fluid">
+                            <?=$model->creator->username;?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h4>Move To</h4>
+                        <div class="container-fluid">
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'list_id',
-            'title',
-            'code',
-            'description:ntext',
-            'due_date',
-            'start_date',
-            'end_date',
-            'total_used_time',
-            'last_modified_user_id',
-            'last_modified_date',
-            'created_user_id',
-            'created_date',
-            'active',
-        ],
-    ]) ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <?= Html::a('Edit', ['update', 'id' => $model->id],
+                                [
+//                                        'class' => 'btn btn-primary'
+                                ]
+                            ) ?>
+                    </div>
+                    <div class="row">
+                        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+//                                'class' => 'btn btn-danger',
+                            'data' => [
+                                'confirm' => 'Are you sure you want to delete this item?',
+                                'method' => 'post',
+                            ],
+                        ]) ?>
+                    </div>
+                    <div class="row">
+                        <a href="/board/view/<?=$model->list->board->id?>">Back To Board</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>

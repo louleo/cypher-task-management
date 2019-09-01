@@ -79,4 +79,29 @@ class Card extends \app\models\ActiveRecordVersion
     {
         return $this->hasOne(BoardList::className(), ['id' => 'list_id']);
     }
+
+    public function initCode(){
+        $currentList = $this->list;
+        $currentBoard = $currentList->board;
+        $code = 1;
+        foreach ($currentBoard->lists as $curList){
+            $newestCard = Card::findOne(['list_id'=>$curList->id,'code'=>SORT_DESC]);
+            if (isset($newestCard)){
+                if ($code <= $newestCard->code){
+                    $code = $newestCard->code +1;
+                }
+            }
+        }
+        return $code;
+    }
+
+    public function getBoardCode(){
+        $currentList = $this->list;
+        $currentBoard = $currentList->board;
+        return $currentBoard->code.$this->code;
+    }
+
+    public function getCreator(){
+        return $this->hasOne(User::className(),['id'=>'created_user_id']);
+    }
 }

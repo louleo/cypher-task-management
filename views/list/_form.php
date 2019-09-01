@@ -7,6 +7,17 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\BoardList */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+<?php
+
+$orderOption = [];
+
+$optionNubmber = $model->listNumber;
+
+for ($i = 1; $i<= $optionNubmber; $i++){
+    $orderOption[$i] = $i;
+}
+
+?>
 
 <div class="board-list-form">
 
@@ -16,7 +27,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'order')->textInput() ?>
+    <?= $form->field($model, 'order')->dropDownList($orderOption) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

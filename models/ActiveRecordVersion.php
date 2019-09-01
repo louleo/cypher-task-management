@@ -156,12 +156,12 @@ class ActiveRecordVersion extends ActiveRecord
     }
 
     public function deactivate(){
-        if ($this->active == 1){
-            $this->active = 0;
-            $this->save();
-        }else{
-            $this->active = 1;
-            $this->save();
-        }
+        $this->active = 0;
+        $this->save();
+    }
+
+    public function activate(){
+        $this->active = 1;
+        $this->save();
     }
 }

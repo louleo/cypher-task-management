@@ -79,6 +79,12 @@ class BoardList extends \app\models\ActiveRecordVersion
      */
     public function getCards()
     {
-        return $this->hasMany(Card::className(), ['list_id' => 'id']);
+        return $this->hasMany(Card::className(), ['list_id' => 'id'])->where(['active'=>1]);
+    }
+
+    public function getListNumber(){
+        $currentBoard = $this->board;
+        $listNumber = count($currentBoard->lists);
+        return $listNumber+1;
     }
 }

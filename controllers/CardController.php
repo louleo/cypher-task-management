@@ -118,11 +118,7 @@ class CardController extends Controller
             $model->list_id = $list_id;
         }
 
-        $code = Yii::$app->request->get('code');
-
-        if (isset($code)){
-            $model->code = $code;
-        }
+        $model->code = $model->initCode();
 
         if (isset($model->code) && isset($model->list_id)){
             if ($model->load(Yii::$app->request->post()) && $model->save()){
@@ -176,8 +172,7 @@ class CardController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        $this->findModel($id)->deactivate();
         return $this->redirect(['index']);
     }
 
