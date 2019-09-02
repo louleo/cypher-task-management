@@ -46,6 +46,7 @@ class CardController extends Controller
                             'view',
                             'update',
                             'create-template',
+                            'move-to'
                         ],
                         'roles'=>['@']
                     ],
@@ -176,6 +177,22 @@ class CardController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionMoveTo(){
+
+        $successful = false;
+        $request = Yii::$app->getRequest();
+        $card_id = $request->get('card_id');
+        $list_id = $request->get('list_id');
+        if (isset($card_id) && isset($list_id)){
+            if ($this->findModel($card_id)->moveTo($list_id)){
+                $successful = true;
+            }
+        }
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return ['flag'=>$successful];
+    }
+
+
     /**
      * Finds the Card model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -191,5 +208,4 @@ class CardController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-
 }

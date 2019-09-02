@@ -104,4 +104,19 @@ class Card extends \app\models\ActiveRecordVersion
     public function getCreator(){
         return $this->hasOne(User::className(),['id'=>'created_user_id']);
     }
+
+    public function moveTo($list_id){
+        $this->list_id = $list_id;
+        return $this->save();
+    }
+
+    public function getBoardLists(){
+        if (isset($this->list)){
+            $list = $this->list;
+            if (isset($list->board)){
+                return $list->board->lists;
+            }
+        }
+        return null;
+    }
 }

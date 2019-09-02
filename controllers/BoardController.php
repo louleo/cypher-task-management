@@ -175,5 +175,6 @@ class BoardController extends Controller
 
         return $this->render('lists', [
             'dataProvider' => $dataProvider,
-        ]);    }
+        ]);
+    }
 }
