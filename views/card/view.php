@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -27,7 +28,48 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="row">
                         <h3>Comments</h3>
                         <div class="container-fluid">
+                            <div class="card-comments-wrapper">
+                            <?php
+                                $comments = $model->comments;
+                                if (isset($comments)){
+                                    foreach ($comments as $comment){
+                                      ?>
+                            <div class="card-comment-wrapper">
+                                <div class="card-comment-container">
+                                    <?=$comment->content?>
+                                </div>
+                                <div class="card-comment-details">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            Author: <?=$comment->author->username;?>
+                                        </div>
+                                        <div class="col-log-6">
+                                            Last Modified On: <?=$comment->last_modified_date?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                        <?php
+                                    }
+                                }
+                            ?>
+                        </div>
+                            <div class="card-add-comment-wrapper">
+                                <?php
+                                $new_comment = $model->getNewComment();
+                                $form = ActiveForm::begin(['action'=>'/comment/create']); ?>
 
+                                <?= $form->field($new_comment, 'content')->textarea(['rows' => 6])->label(false) ?>
+
+                                <?= $form->field($new_comment, 'card_id')->hiddenInput(['value'=>$model->id])->label(false) ?>
+
+                                <div class="form-group">
+                                    <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+                                </div>
+
+                                <?php ActiveForm::end(); ?>
+
+                            </div>
                         </div>
                     </div>
                 </div>

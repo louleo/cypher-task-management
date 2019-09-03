@@ -66,4 +66,8 @@ class Comment extends \app\models\ActiveRecordVersion
     {
         return $this->hasOne(Card::className(), ['id' => 'card_id']);
     }
+
+    public function getAuthor(){
+        return $this->hasOne(User::className(), ['id' => 'last_modified_user_id']);
+    }
 }

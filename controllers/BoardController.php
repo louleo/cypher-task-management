@@ -44,6 +44,7 @@ class BoardController extends Controller
                     [
                         'allow' => true,
                         'actions'=>[
+                            'index',
                             'view',
                             'update',
                             'lists',

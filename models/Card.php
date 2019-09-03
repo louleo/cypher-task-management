@@ -105,6 +105,10 @@ class Card extends \app\models\ActiveRecordVersion
         return $this->hasOne(User::className(),['id'=>'created_user_id']);
     }
 
+    public function getComments(){
+        return $this->hasMany(Comment::className(),['card_id'=>'id'])->orderBy(['last_modified_date'=>SORT_DESC]);
+    }
+
     public function moveTo($list_id){
         $this->list_id = $list_id;
         return $this->save();
@@ -118,5 +122,9 @@ class Card extends \app\models\ActiveRecordVersion
             }
         }
         return null;
+    }
+
+    public function getNewComment(){
+        return new Comment();
     }
 }
