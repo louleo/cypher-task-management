@@ -10,6 +10,11 @@ $this->title = $board->name;
 \yii\web\YiiAsset::register($this);
 ?>
 <style>
+div.board-board{
+    overflow-x:auto;
+    white-space: nowrap;
+    min-height: 35em;
+}
 div.board-list-wrapper{
     width: 272px;
     margin: .5rem 4px;
@@ -46,7 +51,7 @@ div.board-list-cards{
     margin: 0 4px;
     padding: 0 4px;
     z-index: 1;
-    min-height: 0;
+    min-height: 15px;
 }
 a.board-list-card {
     background-color: #fff;
@@ -82,6 +87,9 @@ a.board-list-header-edit{
     float: right;
 }
 </style>
+<?php
+    $boardAdmin = $board->isAdmin(Yii::$app->user->id);
+?>
 <div class="board-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -94,14 +102,31 @@ a.board-list-header-edit{
                     <div class="board-list">
                         <div class="board-list-header">
                             <?= $list->name;?>
-                            <a class="board-list-header-edit" href="/list/update/<?=$list->id?>">Edit</a>
+                            <?php
+                                if ($boardAdmin){
+                                    ?>
+                                    <a class="board-list-header-edit" href="/list/update/<?=$list->id?>">Edit</a>
+                                    <?php
+                                }
+                            ?>
                         </div>
-                        <div class="board-list-cards">
+                        <div class="board-list-cards js-board-list-cards-container" data-list-id="<?=$list->id?>" >
                             <?php
                             foreach ($list->cards as $card){
                                 ?>
-                                <a class="board-list-card js-board-list-card" data-card-id="<?=$card->id;?>" href="/card/view/<?=$card->id;?>">
-                                    <?=$card->title?>
+                                <a class="board-list-card js-board-list-card" data-card-id="<?=$card->id;?>" href="/card/view/<?=$card->id;?>" data-toggle="tooltip" data-placement="top" title="<?=$card->boardCode;?>">
+                                        <div style="display: inline-block;padding:.2em;">
+                                            <?=$card->title?>
+                                        </div>
+                                        <?php
+                                        if (isset($card->assignee)){
+                                            ?>
+                                            <div class="float-right" style="padding: .2em;font-weight: bold;background: #818182;border-radius: 10px;">
+                                                <?=$card->assignee->user_name;?>
+                                            </div>
+                                            <?php
+                                        }
+                                        ?>
                                 </a>
                                 <?php
                             }
@@ -201,10 +226,28 @@ a.board-list-header-edit{
     //         }
     //     });
     // });
+    function cardMoveToList(card_id,list_id){
+        $.ajax({
+            url:'/card/move-to',
+            data:{'list_id': list_id,'card_id': card_id},
+            method:'GET',
+            success:function (data) {
+
+            }
+        });
+    }
 
     $('.js-board-list-create-card').on('click',function () {
        let board_code = $('#global-board-code').val();
        board_code += '-'+($('.js-board-list-card').length+1).toString();
        window.location.href = $(this).data('href')+'&code='+board_code;
+    });
+    let dragulaArray = [];
+    $('.js-board-list-cards-container').each(function () {
+       dragulaArray.push($(this)[0]);
+    });
+
+    dragula(dragulaArray).on('drop',function (el,target,source,sibling) {
+        cardMoveToList($(el).data('card-id'),$(target).data('list-id'));
     });
 </script>

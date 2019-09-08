@@ -29,7 +29,7 @@ AppAsset::register($this);
 <div class="wrap">
     <nav class="navbar navbar-expand-lg navbar-dark site-navbar-custom fixed-top">
         <div class="container-fluid" style="padding: 0;">
-            <a class="navbar-brand" href="/board/" style="font-size: 1.5em;">Cypher</a>
+            <a class="navbar-brand" href="/" style="font-size: 1.5em;">Cypher</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -40,6 +40,9 @@ AppAsset::register($this);
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" style="padding: 14px" href="/board/lists">Board</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="padding: 14px;" href="/user/">User</a>
                     </li>
                     <li class="nav-item">
                         <?=Yii::$app->user->isGuest? '<a class="nav-link" href="/site/login">Log In</a>':Html::beginForm(['/site/logout'], 'post')

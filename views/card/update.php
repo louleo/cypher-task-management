@@ -12,7 +12,24 @@ $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="card-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="row">
+        <div class="col-lg-10">
+            <h1><?= Html::encode($this->title) ?></h1>
+        </div>
+        <div class="col-lg-2">
+            <?php
+                if (Yii::$app->user->can('admin')){
+                    echo Html::a('Delete', ['delete', 'id' => $model->id], [
+                        'class' => 'btn btn-danger float-right',
+                        'data' => [
+                            'confirm' => 'Are you sure you want to delete this item?',
+                            'method' => 'post',
+                        ],
+                    ]) ;
+                }
+            ?>
+        </div>
+    </div>
 
     <?= $this->render('_form', [
         'model' => $model,

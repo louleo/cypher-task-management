@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\BoardList;
+use app\models\CardUserAssign;
 use Yii;
 use app\models\Card;
 use yii\data\ActiveDataProvider;
@@ -35,7 +36,6 @@ class CardController extends Controller
                         'allow' => true,
                         'actions' => [
                             'index',
-                            'create',
                             'delete',
                         ],
                         'roles' => ['admin'],
@@ -43,10 +43,12 @@ class CardController extends Controller
                     [
                         'allow' => true,
                         'actions'=>[
+                            'create',
                             'view',
                             'update',
                             'create-template',
-                            'move-to'
+                            'move-to',
+                            'user-assign',
                         ],
                         'roles'=>['@']
                     ],
@@ -174,7 +176,7 @@ class CardController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->deactivate();
-        return $this->redirect(['index']);
+        return $this->redirect(['/board/index']);
     }
 
     public function actionMoveTo(){
@@ -207,5 +209,33 @@ class CardController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionUserAssign(){
+        $successful = false;
+        $request = Yii::$app->getRequest();
+        $card_id = $request->get('card_id');
+        $user_id = $request->get('user_id');
+
+        $cardUserAssigns = CardUserAssign::findAll(['card_id'=>$card_id]);
+
+        if (isset($cardUserAssigns)){
+            foreach ($cardUserAssigns as $cardUserAssign){
+                $cardUserAssign->delete();
+            }
+        }
+
+        if (isset($card_id) && isset($user_id) && $user_id){
+            if ($this->findModel($card_id)->assignTo($user_id)){
+                $successful = true;
+            }
+        }
+
+        if ($user_id == 0){
+            $successful = true;
+        }
+
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return ['flag'=>$successful];
     }
 }

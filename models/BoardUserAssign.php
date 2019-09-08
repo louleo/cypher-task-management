@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "board_user_assign".
@@ -76,5 +77,10 @@ class BoardUserAssign extends \app\models\ActiveRecordVersion
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+    public function getAllUsers(){
+        $users = User::find()->all();
+        $list_data = ArrayHelper::map($users,'id','user_name');
+        return $list_data;
     }
 }

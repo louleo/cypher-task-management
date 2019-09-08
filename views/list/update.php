@@ -11,11 +11,27 @@ $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="board-list-update">
+    <div class="container">
+        <div class="row">
+                <div class="col-lg-10">
+                    <h1><?= Html::encode($this->title) ?></h1>
+                </div>
+                <div class="col-lg-2">
+                    <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+                        'class' => 'btn btn-danger float-right',
+                        'data' => [
+                            'confirm' => 'Are you sure you want to delete this item?',
+                            'method' => 'post',
+                        ],
+                    ]) ?>
+                </div>
+        </div>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+        <?= $this->render('_form', [
+            'model' => $model,
+        ]) ?>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+
+    </div>
 
 </div>

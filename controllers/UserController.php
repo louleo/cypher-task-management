@@ -35,7 +35,6 @@ class UserController extends Controller
                     [
                         'allow' => true,
                         'actions' => [
-                            'index',
                             'create',
                             'delete',
                         ],
@@ -44,6 +43,7 @@ class UserController extends Controller
                     [
                         'allow' => true,
                         'actions'=>[
+                            'index',
                             'view',
                             'update',
                         ],
@@ -60,13 +60,16 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => User::find(),
-        ]);
+        if (Yii::$app->user->can('admin')){
+            $users = User::find()->all();
 
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'models' => $users,
+            ]);
+        }else{
+            return $this->redirect(['update','id'=>Yii::$app->user->id]);
+        }
+
     }
 
     /**
@@ -120,14 +123,16 @@ class UserController extends Controller
             if (isset($_POST['User']) && !empty($_POST['User'])){
                 $model->user_name = $_POST['User']['user_name'];
                 $model->user_number = $_POST['User']['user_number'];
-                $model->password = password_hash($_POST['User']['password'],1);
+                if (!empty($_POST['User']['password'])){
+                    $model->password = password_hash($_POST['User']['password'],1);
+                }
                 $model->dob = $_POST['User']['dob'];
                 $model->active = $_POST['User']['active'];
                 if ($model->save()){
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
             }
-
+            $model->password = '';
             return $this->render('update', [
                 'model' => $model,
             ]);

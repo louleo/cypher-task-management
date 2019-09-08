@@ -48,7 +48,17 @@ SiteAsset::register($this);
                         <a class="nav-link site-button-a site-draw" href="/site/about">About Us</a>
                     </li>
                     <li class="nav-item">
+                        <?php
+                            if(Yii::$app->user->isGuest):
+                        ?>
                         <a class="nav-link site-button-a site-draw" href="/site/login">Log In</a>
+                        <?php
+                            else:
+                        ?>
+                        <a class="nav-link site-button-a site-draw" href="/board/">Board</a>
+                        <?php
+                            endif;
+                        ?>
                     </li>
                 </ul>
             </div>

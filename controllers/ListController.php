@@ -2,11 +2,13 @@
 
 namespace app\controllers;
 
+use app\models\Board;
 use Yii;
 use app\models\BoardList;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -34,15 +36,15 @@ class ListController extends Controller
                         'allow' => true,
                         'actions' => [
                             'index',
-                            'create',
                             'delete',
+                            'view',
                         ],
                         'roles' => ['admin'],
                     ],
                     [
                         'allow' => true,
                         'actions'=>[
-                            'view',
+                            'create',
                             'update',
                         ],
                         'roles'=>['@']
@@ -93,9 +95,15 @@ class ListController extends Controller
 
         if (isset($board_id)){
             $model->board_id = $board_id;
+            $board = Board::findOne(['id'=>$board_id]);
         }
 
-        if (isset($model->board_id)){
+        if (isset($board)){
+
+            if (!$board->isAdmin(Yii::$app->user->id)){
+                throw new HttpException(403, 'You do not have the permission to modify any information of this board.');
+            }
+
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                return $this->redirect('/board/view/'.$model->board_id);
             }
@@ -125,6 +133,12 @@ class ListController extends Controller
     {
         $model = $this->findModel($id);
 
+        $board = $model->board;
+
+        if (!$board->isAdmin(Yii::$app->user->id)){
+            throw new HttpException(403, 'You do not have the permission to modify any information of this board.');
+        }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $this->redirect('/board/view/'.$model->board_id);
         }
@@ -143,9 +157,12 @@ class ListController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->deactivate();
+//        $this->findModel($id)->deactivate();
+        if (count($this->findModel($id)->cards) == 0){
+            $this->findModel($id)->deactivate();
+        }
 
-        return $this->redirect(['index']);
+        return $this->redirect(['board/index']);
     }
 
     /**

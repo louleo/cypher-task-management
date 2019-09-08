@@ -28,4 +28,7 @@ use yii\widgets\ActiveForm;
 
     <?php ActiveForm::end(); ?>
 
+    <script>
+        $('#user-dob').datepicker();
+    </script>
 </div>

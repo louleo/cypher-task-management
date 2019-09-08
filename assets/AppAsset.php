@@ -26,12 +26,16 @@ class AppAsset extends AssetBundle
         'css/jquery-ui.min.css',
         'css/jquery-ui,structure.min.css',
         'css/jquery-ui.theme.min.css',
+        'css/dragula.css',
+        'css/pell.css',
     ];
     public $js = [
         'js/angular.js',
         'js/bootstrap.min.js',
         'js/popper.min.js',
         'js/jquery-ui.min.js',
+        'js/dragula.js',
+        'js/pell.js',
 //        'js/jquery-3.4.1.min.js'
     ];
     public $depends = [

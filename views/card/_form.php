@@ -7,7 +7,13 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\Card */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
+<style>
+    div.pell-content-custom-name {
+        min-height: 200px;
+        border: 1px solid lightgray;
+        margin-top: .5em;
+    }
+</style>
 <div class="card-form">
 
     <?php $form = ActiveForm::begin([
@@ -22,7 +28,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'code')->hiddenInput(['maxlength' => true])->label(false) ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'description')->textarea(['rows' => 6, 'style'=>'display:none']) ?>
+
+    <div id="description-editor" class="pell"></div>
 
     <?= $form->field($model, 'due_date')->textInput() ?>
 
@@ -39,6 +47,58 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<script>
+
+    const editor = pell.init({
+        element: document.getElementById('description-editor'),
+        onChange: html => {
+            document.getElementById('card-description').textContent = html
+        },
+        defaultParagraphSeparator: 'p',
+        styleWithCSS: true,
+        actions: [
+            'bold',
+            'underline',
+            'heading1',
+            'heading2',
+            'italic',
+            'paragraph',
+            'quote',
+            'olist',
+            'ulist',
+            'code',
+            'strikethrough',
+            {
+                name: 'backColor',
+                icon: '<div style="background-color:lightgreen;">A</div>',
+                title: 'Highlight Color',
+                result: () => pell.exec('backColor', 'lightgreen')
+            },
+            {
+                name: 'image',
+                result: () => {
+                    const url = window.prompt('Enter the image URL')
+                    if (url) pell.exec('insertImage', url)
+                }
+            },
+            {
+                name: 'link',
+                result: () => {
+                    const url = window.prompt('Enter the link URL')
+                    if (url) pell.exec('createLink', url)
+                }
+            }
+        ],
+        classes: {
+            actionbar: 'pell-actionbar',
+            button: 'pell-button',
+            content: 'pell-content',
+            selected: 'pell-button-selected'
+        }
+    });
+    editor.content.innerHTML = '<?=$model->description;?>'
+</script>
 
 <script>
     // $('.js-create-card-btn').on('click',function (e) {

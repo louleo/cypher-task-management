@@ -164,4 +164,11 @@ class ActiveRecordVersion extends ActiveRecord
         $this->active = 1;
         $this->save();
     }
-}
+
+    public function dateFormat($attribute){
+        $this->$attribute = date('Y-m-d', strtotime($this->$attribute));
+    }
+
+    public function timeFormat($attribute){
+        $this->$attribute = date('Y-m-d H:i:s', strtotime($this->$attribute));
+    }}

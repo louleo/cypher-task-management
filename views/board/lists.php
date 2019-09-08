@@ -9,30 +9,56 @@ use yii\grid\GridView;
 $this->title = 'Board';
 ?>
 <div class="board-list-index">
+    <div class="container">
+        <h1><?= Html::encode($this->title) ?></h1>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+        <?php
+            if (Yii::$app->user->can('admin')){
+                ?>
+                <p>
+                    <?= Html::a('Create Board', ['create'], ['class' => 'btn btn-success']) ?>
+                </p>
+                <?php
+            }
+        ?>
 
-    <p>
-        <?= Html::a('Create Board', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    </div>
 
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'name',
-            'last_modified_user_id',
-            //'last_modified_date',
-            //'created_user_id',
-            //'created_date',
-            //'active',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+    <div class="container">
+        <table class="table">
+            <tr>
+                <th>Board Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>View</th>
+                <th>Edit</th>
+            </tr>
+            <?php
+            foreach ($models as $model){
+                ?>
+                <tr>
+                    <td><?=$model->id?></td>
+                    <td><?=$model->name?></td>
+                    <td><?=$model->description?></td>
+                    <td><?=$model->active?></td>
+                    <td><a href="/board/view/<?=$model->id?>">View</a></td>
+                    <td>
+                    <?php
+                        if ($model->isAdmin(Yii::$app->user->id)){
+                            ?>
+                            <a href="/board/update/<?=$model->id?>">Edit</a>
+                    <?php
+                        }
+                    ?>
+                    </td>
+                </tr>
+                <?php
+            }
+            ?>
+        </table>
+    </div>
 
 
 </div>

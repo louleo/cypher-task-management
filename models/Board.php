@@ -88,12 +88,20 @@ class Board extends \app\models\ActiveRecordVersion
         return parent::beforesave($insert);
     }
 
-    protected function isAdmin($userId){
+    public function isAdmin($userId){
         return self::adminCheck($userId,$this->id);
     }
 
     public static function adminCheck($userId,$boardId){
-        $boardUserAssign = BoardUserAssign::findOne(['board_id'=>$boardId,'user_id'=>$userId,'admin'=>'1']);
+        $boardUserAssign = BoardUserAssign::findOne(['board_id'=>$boardId,'user_id'=>$userId,'is_admin'=>'1']);
+        if (isset($boardUserAssign) || Yii::$app->user->can('admin')){
+            return true;
+        }
+        return false;
+    }
+
+    public static function userCheck($userId, $boardId){
+        $boardUserAssign = BoardUserAssign::findOne(['board_id'=>$boardId,'user_id'=>$userId]);
         if (isset($boardUserAssign) || Yii::$app->user->can('admin')){
             return true;
         }
@@ -105,6 +113,19 @@ class Board extends \app\models\ActiveRecordVersion
      */
     public function getLists()
     {
-        return $this->hasMany(BoardList::className(), ['board_id' => 'id'])->orderBy(['order'=>SORT_ASC]);
+        return $this->hasMany(BoardList::className(), ['board_id' => 'id'])->where(['active'=>1])->orderBy(['order'=>SORT_ASC]);
+    }
+
+    public function isUser($userId){
+        return self::userCheck($userId,$this->id);
+    }
+
+    public function getBoardUsers(){
+        return $this->hasMany(User::className(),['id'=>'user_id'])->viaTable('board_user_assign',['board_id'=>'id']);
+    }
+    public function createNewBoardUserAssign(){
+        $returnModel = new BoardUserAssign();
+        $returnModel->board_id = $this->id;
+        return $returnModel;
     }
 }

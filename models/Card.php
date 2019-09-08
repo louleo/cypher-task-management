@@ -98,7 +98,7 @@ class Card extends \app\models\ActiveRecordVersion
     public function getBoardCode(){
         $currentList = $this->list;
         $currentBoard = $currentList->board;
-        return $currentBoard->code.$this->code;
+        return $currentBoard->code.'-'.$this->code;
     }
 
     public function getCreator(){
@@ -126,5 +126,45 @@ class Card extends \app\models\ActiveRecordVersion
 
     public function getNewComment(){
         return new Comment();
+    }
+
+    public function getAssignee(){
+        return $this->hasOne(User::className(),['id'=>'user_id'])->viaTable('card_user_assign',['card_id'=>'id'])->where(['active'=>1]);
+    }
+
+    public function getBoardUsers(){
+        if (isset($this->list)){
+            $list = $this->list;
+            if (isset($list->board)){
+                return $list->board->boardUsers;
+            }
+        }
+        return null;
+    }
+    public function assignTo($user_id){
+        $cardUserAssign = new CardUserAssign();
+        $cardUserAssign->user_id = $user_id;
+        $cardUserAssign->card_id = $this->id;
+        return $cardUserAssign->save();
+    }
+
+    public function beforesave($insert)
+    {
+        if (isset($this->end_date) && preg_match("/^(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])\/[0-9]{4}$/",$this->end_date)){
+            $this->dateFormat('end_date');
+        }else{
+            $this->end_date = null;
+        }
+        if (isset($this->start_date) && preg_match("/^(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])\/[0-9]{4}$/",$this->start_date)){
+            $this->dateFormat('start_date');
+        }else{
+            $this->start_date = null;
+        }
+        if (isset($this->due_date) && preg_match("/^(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])\/[0-9]{4}$/",$this->due_date)){
+            $this->dateFormat('due_date');
+        }else{
+            $this->due_date = null;
+        }
+        return parent::beforesave($insert);
     }
 }
