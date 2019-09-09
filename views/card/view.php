@@ -105,7 +105,7 @@ $this->params['breadcrumbs'][] = $this->title;
         display: inline-block;
         min-width: 10px;
     }
-    span.comment-details-datetime-span{
+    .comment-details-datetime-span{
         font-size: 12px;
         font-weight: 400;
         white-space: pre;
@@ -146,9 +146,21 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="card-comment-wrapper">
                                 <div class="card-comment-details-wrapper">
                                     <div class="row">
-                                        <span><strong><?=$comment->author->username;?></strong></span>
-                                        <span class="comment-details-inline-space"> </span>
-                                        <span class="comment-details-datetime-span"><?=$comment->last_modified_date?></span>
+                                        <div class="col-lg-8">
+                                            <span><strong><?=$comment->author->username;?></strong></span>
+                                            <span class="comment-details-inline-space"> </span>
+                                            <span class="comment-details-datetime-span"><?=$comment->lastModifiedDate?></span>
+                                        </div>
+                                        <div class="col-lg-4" style="text-align: right;">
+                                            <?php
+                                            if ($comment->created_user_id == Yii::$app->user->id){
+                                                ?>
+                                                <a href="/comment/delete/?id=<?=$comment->id?>" data-method="POST" class="comment-details-datetime-span">Delete</a>
+                                                <?php
+                                            }
+                                            ?>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="card-comment-content-wrapper">
