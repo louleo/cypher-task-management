@@ -170,4 +170,10 @@ class UserController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    protected function roleAssign($role,$user){
+        $auth = Yii::$app->getAuthManager();
+        $role = $auth->getRole($role);
+        $auth->assign($role,$user->id);
+    }
 }
