@@ -170,4 +170,49 @@ class User extends ActiveRecordVersion implements IdentityInterface
     public function getUserName(){
         return $this->user_name;
     }
+
+    public function getContact(){
+        return $this->hasOne(Contact::className(), ['user_id' => 'id']);
+    }
+
+    public function getNickName(){
+        $model = $this->getContact();
+        if (isset($model)){
+            return $model->nick_name;
+        }
+        return $this->userName;
+    }
+
+    public function getFirstkName(){
+        $model = $this->getContact();
+        if (isset($model)){
+            return $model->first_name;
+        }
+        return $this->userName;
+    }
+
+    public function getLastName(){
+        $model = $this->getContact();
+        if (isset($model)){
+            return $model->last_name;
+        }
+        return $this->userName;
+    }
+
+    public function getEmail(){
+        $model = $this->getContact();
+        if (isset($model)){
+            return $model->email;
+        }
+        return null;
+    }
+
+    public function getMobile(){
+        $model = $this->getContact();
+        if (isset($model)){
+            return $model->mobile;
+        }
+        return null;
+    }
+
 }

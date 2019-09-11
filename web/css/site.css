@@ -280,6 +280,13 @@ header.site-masthead-about .site-masthead-content {
     position: relative;
 }
 
+div.site-main-banner-text-container{
+    background: #000;
+    padding: 1em;
+    opacity: .8;
+    color: #fff;
+}
+
 header.site-masthead-about .site-masthead-content .site-masthead-heading {
     font-size: 4rem;
 }
