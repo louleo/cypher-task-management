@@ -24,7 +24,7 @@ class AppAsset extends AssetBundle
         'css/app.css',
         'css/bootstrap.css',
         'css/jquery-ui.min.css',
-        'css/jquery-ui,structure.min.css',
+        'css/jquery-ui.structure.min.css',
         'css/jquery-ui.theme.min.css',
         'css/dragula.css',
         'css/pell.css',

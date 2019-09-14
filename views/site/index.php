@@ -8,7 +8,7 @@ $this->title = 'Cypher';
 <header class="site-masthead text-center text-white">
     <div class="site-masthead-content">
         <div class="container site-main-banner-text-container">
-            <h2 class="site-masthead-subheading mb-0" >Serve our small business with high-quality, affordable software.</h2>
+            <h2 class="site-masthead-subheading mb-0" >Serve our small business with high-quality, affordable digital solutions.</h2>
         </div>
     </div>
 </header>

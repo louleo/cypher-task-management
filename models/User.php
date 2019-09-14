@@ -183,7 +183,7 @@ class User extends ActiveRecordVersion implements IdentityInterface
         return $this->userName;
     }
 
-    public function getFirstkName(){
+    public function getFirstName(){
         $model = $this->getContact();
         if (isset($model)){
             return $model->first_name;
@@ -213,6 +213,25 @@ class User extends ActiveRecordVersion implements IdentityInterface
             return $model->mobile;
         }
         return null;
+    }
+
+    public function getUserRoles(){
+        $auth = Yii::$app->authManager;
+        $returnArray = [];
+        $userId = $this->id;
+        $assignments = $auth->getPermissionsByUser($userId);
+        if (isset($assignments)){
+            foreach ($assignments as $assignment){
+                $returnArray[] = $assignment->description;
+            }
+            return $returnArray;
+        }else{
+            return null;
+        }
+    }
+
+    public function getRoleManagementModel(){
+        return new RoleManagementRecords();
     }
 
 }

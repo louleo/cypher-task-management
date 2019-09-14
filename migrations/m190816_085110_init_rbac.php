@@ -14,7 +14,7 @@ class m190816_085110_init_rbac extends Migration
         $auth = Yii::$app->authManager;
 
         $admin = $auth->createPermission('admin');
-        $admin->description = 'Administrator for this website';
+        $admin->description = 'Administration';
         $auth->add($admin);
 
         $auth->assign($admin,1);

@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\RoleManagementRecords;
+use phpDocumentor\Reflection\DocBlock\Tags\Author;
 use Yii;
 use app\models\User;
 use yii\data\ActiveDataProvider;
@@ -37,6 +39,9 @@ class UserController extends Controller
                         'actions' => [
                             'create',
                             'delete',
+                            'update',
+                            'role-management',
+                            'role-change',
                         ],
                         'roles' => ['admin'],
                     ],
@@ -45,7 +50,7 @@ class UserController extends Controller
                         'actions'=>[
                             'index',
                             'view',
-                            'update',
+                            'edit'
                         ],
                         'roles'=>['@']
                     ],
@@ -67,7 +72,7 @@ class UserController extends Controller
                 'models' => $users,
             ]);
         }else{
-            return $this->redirect(['update','id'=>Yii::$app->user->id]);
+            return $this->redirect(['edit','id'=>Yii::$app->user->id]);
         }
 
     }
@@ -171,9 +176,32 @@ class UserController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    protected function roleAssign($role,$user){
+    protected function roleAssign($role,$userId,$action = 'assign'){
         $auth = Yii::$app->getAuthManager();
-        $role = $auth->getRole($role);
-        $auth->assign($role,$user->id);
+        $role = $auth->getPermission($role);
+        $auth->$action($role,$userId);
+    }
+
+    public function actionRoleManagement(){
+        $users = User::find()->all();
+
+        return $this->render('role-management', [
+            'models' => $users,
+        ]);
+    }
+
+    public function actionRoleChange(){
+        $model = new RoleManagementRecords();
+        $model->load(Yii::$app->request->post());
+        if (!($model->user_id == 1 && $model->action == 'revoke')){
+            if ($model->save()){
+                $this->roleAssign($model->item_name,$model->user_id,$model->action);
+            }
+        }
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    public function actionEdit(){
+
     }
 }

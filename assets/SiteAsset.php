@@ -24,7 +24,7 @@ class SiteAsset extends AssetBundle
         'css/site.css',
         'css/bootstrap.css',
         'css/jquery-ui.min.css',
-        'css/jquery-ui,structure.min.css',
+        'css/jquery-ui.structure.min.css',
         'css/jquery-ui.theme.min.css',
     ];
     public $depends = [

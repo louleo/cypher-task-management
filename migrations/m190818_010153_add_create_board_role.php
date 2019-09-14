@@ -13,7 +13,7 @@ class m190818_010153_add_create_board_role extends Migration
         $auth = Yii::$app->authManager;
 
         $createBoard = $auth->createPermission('createBoard');
-        $createBoard->description = 'User with createBoard can create a new board.';
+        $createBoard->description = 'Board Creation';
         $auth->add($createBoard);
 
         $auth->assign($createBoard,1);

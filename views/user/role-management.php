@@ -1,12 +1,14 @@
 <?php
 
+use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\web\View;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Users';
+$this->title = 'Role Management';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
@@ -14,39 +16,33 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="container">
         <h1><?= Html::encode($this->title) ?></h1>
 
-        <div class="container" style="margin-top: 1em;">
-            <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
-            <?= Html::a('Role Management', ['role-management'], ['class' => 'btn btn-success','style'=>'float:right;']) ?>
-        </div>
-
-
     </div>
 
 
-    <div class="container" style="margin-top: 1em;">
+    <div class="container">
         <table class="table">
             <tr>
                 <th>User Id</th>
                 <th>User Name</th>
                 <th>Status</th>
-                <th>View</th>
-                <th>Edit</th>
+                <th>Roles</th>
             </tr>
             <?php
-                foreach ($models as $model){
-                    ?>
+            foreach ($models as $model){
+                ?>
                 <tr>
                     <td><?=$model->id?></td>
                     <td><?=$model->username?></td>
                     <td><?=$model->active?></td>
-                    <td><a href="/user/view/<?=$model->id?>">View</a></td>
-                    <td><a href="/user/update/<?=$model->id?>">Edit</a></td>
+                    <td><?=isset($model->userRoles)? implode(', ',$model->userRoles):'None';?></td>
                 </tr>
-                    <?php
-                }
+                <?php
+            }
             ?>
         </table>
     </div>
+
+    <?=$this->render('_role_management_form', ['model'=>$model->roleManagementModel]);?>
 
 
 </div>
