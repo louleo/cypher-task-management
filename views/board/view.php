@@ -122,7 +122,7 @@ a.board-list-header-edit{
                                         if (isset($card->assignee)){
                                             ?>
                                             <div class="float-right" style="padding: .2em;font-weight: bold;background: #818182;border-radius: 10px;">
-                                                <?=$card->assignee->user_name;?>
+                                                <?=$card->assignee->userName;?>
                                             </div>
                                             <?php
                                         }

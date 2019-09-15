@@ -1,6 +1,8 @@
 <?php
 
+use app\models\Contact;
 use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -22,8 +24,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nick_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'user_id')->textInput() ?>
-    
+    <?= $form->field($model, 'user_id')->hiddenInput()->label(false) ?>
+
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

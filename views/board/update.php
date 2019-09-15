@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = 'Update';
                             <?=$no?>
                         </td>
                         <td>
-                            <?=$boardUserAssign->user->user_name?>
+                            <?=$boardUserAssign->user->userName?>
                         </td>
                         <td>
                             <?=($boardUserAssign->is_admin)?'Admin User':'Normal User'?>

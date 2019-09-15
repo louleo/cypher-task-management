@@ -84,7 +84,7 @@ class RoleManagementRecords extends \app\models\ActiveRecordVersion
         $users = User::find()->all();
         $returnArray = [];
         foreach ($users as $user){
-            $returnArray[$user->id] = $user->user_name;
+            $returnArray[$user->id] = $user->userName;
         }
         return $returnArray;
     }

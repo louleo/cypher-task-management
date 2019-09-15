@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Contact;
 use app\models\RoleManagementRecords;
 use phpDocumentor\Reflection\DocBlock\Tags\Author;
 use Yii;
@@ -190,6 +191,7 @@ class UserController extends Controller
         ]);
     }
 
+    //todo: need to change the function to a better, less resource-consumed way
     public function actionRoleChange(){
         $model = new RoleManagementRecords();
         $model->load(Yii::$app->request->post());
@@ -201,7 +203,22 @@ class UserController extends Controller
         return $this->redirect(Yii::$app->request->referrer);
     }
 
-    public function actionEdit(){
+    public function actionEdit($id){
+        $model = $this->findModel($id);
+        $contactModel = $model->contact;
+        if (!isset($contactModel)){
+            $contactModel = new Contact();
+        }
+
+        $contactModel->user_id = $model->id;
+
+        if ($contactModel->load(Yii::$app->request->post()) && $contactModel->save()) {
+            return $this->redirect(['/contact/view', 'id' => $contactModel->id]);
+        }
+
+        return $this->render('edit', [
+            'model' => $contactModel,
+        ]);
 
     }
 }

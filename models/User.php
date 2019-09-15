@@ -168,7 +168,7 @@ class User extends ActiveRecordVersion implements IdentityInterface
     }
 
     public function getUserName(){
-        return $this->user_name;
+        return $this->getNickName();
     }
 
     public function getContact(){
@@ -176,31 +176,31 @@ class User extends ActiveRecordVersion implements IdentityInterface
     }
 
     public function getNickName(){
-        $model = $this->getContact();
+        $model = $this->contact;
         if (isset($model)){
             return $model->nick_name;
         }
-        return $this->userName;
+        return $this->user_name;
     }
 
     public function getFirstName(){
-        $model = $this->getContact();
+        $model = $this->contact;
         if (isset($model)){
             return $model->first_name;
         }
-        return $this->userName;
+        return $this->user_name;
     }
 
     public function getLastName(){
-        $model = $this->getContact();
+        $model = $this->contact;
         if (isset($model)){
             return $model->last_name;
         }
-        return $this->userName;
+        return $this->user_name;
     }
 
     public function getEmail(){
-        $model = $this->getContact();
+        $model = $this->contact;
         if (isset($model)){
             return $model->email;
         }
@@ -208,7 +208,7 @@ class User extends ActiveRecordVersion implements IdentityInterface
     }
 
     public function getMobile(){
-        $model = $this->getContact();
+        $model = $this->contact;
         if (isset($model)){
             return $model->mobile;
         }

@@ -153,7 +153,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </div>
                                         <div class="col-lg-4" style="text-align: right;">
                                             <?php
-                                            if ($comment->created_user_id == Yii::$app->user->id){
+                                            if ($comment->created_user_id == Yii::$app->user->id || Yii::$app->user->can('admin')){
                                                 ?>
                                                 <a href="/comment/delete/?id=<?=$comment->id?>" data-method="POST" class="comment-details-datetime-span">Delete</a>
                                                 <?php
@@ -214,7 +214,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 if (isset($boardUsers)){
                                     foreach ($boardUsers as $boardUser){
                                         ?>
-                                        <option value="<?=$boardUser->id?>" <?=($boardUser->id == $assignee_id)?'selected':''?> ><?=$boardUser->user_name?></option>
+                                        <option value="<?=$boardUser->id?>" <?=($boardUser->id == $assignee_id)?'selected':''?> ><?=$boardUser->userName?></option>
                                         <?php
                                     }
                                 }

@@ -94,7 +94,7 @@ class CommentController extends Controller
         ]);
     }
 
-    /**
+    /**;
      * Deletes an existing Comment model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -103,8 +103,10 @@ class CommentController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        $model = $this->findModel($id);
+        if ($model->created_user_id == Yii::$app->user->id || Yii::$app->user->can('admin')){
+            $model->delete();
+        }
         return $this->redirect(Yii::$app->request->referrer);
     }
 
