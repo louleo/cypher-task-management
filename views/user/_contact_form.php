@@ -12,7 +12,9 @@ use yii\widgets\ActiveForm;
 
 <div class="contact-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php
+    $model->user->password = '';
+    $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
 
@@ -22,7 +24,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'mobile')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'nick_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'nick_name')->textInput(['maxlength' => true])?>
+
+    <?= $form->field($model->user,'password')->passwordInput()?>
 
     <?= $form->field($model, 'user_id')->hiddenInput()->label(false) ?>
 

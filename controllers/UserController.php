@@ -104,13 +104,18 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User();
+        $contact = new Contact();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $contact->attributes = $_POST['Contact'];
+            $contact->user_id = $model->id;
+            $contact->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'contact'=>$contact,
         ]);
     }
 
@@ -125,7 +130,12 @@ class UserController extends Controller
     {
         if (Yii::$app->user->id == $id || Yii::$app->user->can('admin')){
             $model = $this->findModel($id);
-
+            if (!isset($model->contact)){
+                $contact = new Contact();
+                $contact->user_id = $model->id;
+            }else{
+                $contact = $model->contact;
+            }
             if (isset($_POST['User']) && !empty($_POST['User'])){
                 $model->user_name = $_POST['User']['user_name'];
                 $model->user_number = $_POST['User']['user_number'];
@@ -135,12 +145,15 @@ class UserController extends Controller
                 $model->dob = $_POST['User']['dob'];
                 $model->active = $_POST['User']['active'];
                 if ($model->save()){
+                    $contact->load(Yii::$app->request->post());
+                    $contact->save();
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
             }
             $model->password = '';
             return $this->render('update', [
                 'model' => $model,
+                'contact'=>$contact,
             ]);
         }else{
             throw new HttpException(403,'You are not allowed to perform this action.');
@@ -213,6 +226,9 @@ class UserController extends Controller
         $contactModel->user_id = $model->id;
 
         if ($contactModel->load(Yii::$app->request->post()) && $contactModel->save()) {
+            if (isset($_POST['User']['password'])){
+                $contactModel->user->savePassword($_POST['User']['password']);
+            }
             return $this->redirect(['/contact/view', 'id' => $contactModel->id]);
         }
 

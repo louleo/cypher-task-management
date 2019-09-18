@@ -17,17 +17,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Edit', ['edit', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'user_number',
-            'user_name',
-            'dob',
-            'active',
-        ],
-    ]) ?>
-
+    <table class="table table-striped table-bordered detail-view">
+        <tbody>
+        <?php
+            foreach (['id','user_number','user_name','dob','active'] as $attribute){
+                echo "<tr><th>".$model->getAttributeLabel($attribute)."</th><td>".$model->$attribute."</td></tr>";
+            }
+            foreach (['first_name','last_name','email','mobile','nick_name'] as $attribute){
+                echo "<tr><th>".$model->contact->getAttributeLabel($attribute)."</th><td>".$model->contact->$attribute."</td></tr>";
+             }
+        ?>
+        </tbody>
+    </table>
 </div>

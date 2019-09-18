@@ -234,4 +234,19 @@ class User extends ActiveRecordVersion implements IdentityInterface
         return new RoleManagementRecords();
     }
 
+    public function savePassword($password){
+        $this->password = password_hash($password,1);
+        $this->save();
+    }
+
+    public function beforesave($insert)
+    {
+        if (isset($this->dob) && preg_match("/^(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])\/[0-9]{4}$/", $this->dob)) {
+            $this->dateFormat('dob');
+        } else {
+            $this->dob = null;
+        }
+        return parent::beforesave($insert);
+    }
+
 }

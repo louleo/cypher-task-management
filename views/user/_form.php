@@ -18,7 +18,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'dob')->textInput() ?>
 
-    <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'password')->passwordInput(['maxlength' => true])?>
+
+    <?= $form->field($contact, 'first_name')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($contact, 'last_name')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($contact, 'email')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($contact, 'mobile')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($contact, 'nick_name')->textInput(['maxlength' => true])?>
 
     <?= $form->field($model, 'active')->checkbox() ?>
 
