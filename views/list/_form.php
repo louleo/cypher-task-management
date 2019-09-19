@@ -13,6 +13,10 @@ $orderOption = [];
 
 $optionNubmber = $model->listNumber;
 
+if (isset($model->id)){
+    $optionNubmber -= 1;
+}
+
 for ($i = 1; $i<= $optionNubmber; $i++){
     $orderOption[$i] = $i;
 }

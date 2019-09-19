@@ -123,6 +123,7 @@ class Board extends \app\models\ActiveRecordVersion
     public function getBoardUsers(){
         return $this->hasMany(User::className(),['id'=>'user_id'])->viaTable('board_user_assign',['board_id'=>'id']);
     }
+
     public function createNewBoardUserAssign(){
         $returnModel = new BoardUserAssign();
         $returnModel->board_id = $this->id;

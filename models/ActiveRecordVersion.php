@@ -157,8 +157,10 @@ class ActiveRecordVersion extends ActiveRecord
     }
 
     public function deactivate(){
-        $this->active = 0;
-        $this->save();
+        if ($this->beforedeactivate()){
+            $this->active = 0;
+            $this->save();
+        }
     }
 
     public function activate(){
@@ -186,6 +188,10 @@ class ActiveRecordVersion extends ActiveRecord
 
     public function getLastModifiedDate(){
         return $this->timeZoneTranslate('last_modified_date','Australia/Sydney');
+    }
+
+    public function beforedeactivate(){
+        return true;
     }
 
 }

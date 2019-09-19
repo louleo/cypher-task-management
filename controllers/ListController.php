@@ -104,6 +104,8 @@ class ListController extends Controller
                 throw new HttpException(403, 'You do not have the permission to modify any information of this board.');
             }
 
+            $model->pre_order = $model->listNumber;
+
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                return $this->redirect('/board/view/'.$model->board_id);
             }
@@ -111,15 +113,6 @@ class ListController extends Controller
         }else{
             $this->redirect('/board/index');
         }
-
-//
-//        $output = $this->renderPartial('create', [
-//            'model' => $model,
-//        ]);
-//        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-//        return ['html'=>$output,'title'=>'Create New List'];
-
-
     }
 
     /**
@@ -138,6 +131,8 @@ class ListController extends Controller
         if (!$board->isAdmin(Yii::$app->user->id)){
             throw new HttpException(403, 'You do not have the permission to modify any information of this board.');
         }
+
+        $model->pre_order = $model->order;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $this->redirect('/board/view/'.$model->board_id);
