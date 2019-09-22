@@ -42,6 +42,9 @@ AppAsset::register($this);
                         <a class="nav-link" style="padding: 14px" href="/board/lists">Board</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" style="padding: 14px" href="/note/">Note</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" style="padding: 14px;" href="/user/">User</a>
                     </li>
                     <li class="nav-item">

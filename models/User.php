@@ -215,6 +215,10 @@ class User extends ActiveRecordVersion implements IdentityInterface
         return null;
     }
 
+    public function getFullName(){
+        return $this->firstName.' '.$this->lastName;
+    }
+
     public function getUserRoles(){
         $auth = Yii::$app->authManager;
         $returnArray = [];

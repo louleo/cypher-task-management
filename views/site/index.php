@@ -103,7 +103,7 @@ if (false) {
 
 <section style="padding: 7em 0; text-align: center; color: #fff;" class="site-bg-grey-smoke">
     <div class="container">
-        <h1> Your Future, Our Mission.</h1>
+        <h1>Sharpen Your Future With Emerging Technologies</h1>
         <div class="row">
                 <div class="site-entry-content"><p><strong>For over a decade we’ve been building better digital futures with
                             innovative &amp; outcome focused clients</strong>. From startups to multi-national

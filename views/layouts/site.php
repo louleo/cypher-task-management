@@ -39,10 +39,10 @@ SiteAsset::register($this);
                         <a class="nav-link site-button-a site-draw" href="/site/contact">Enquiries</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link site-button-a site-draw" href="#">Application Development</a>
+                        <a class="nav-link site-button-a site-draw" href="#">Products and Services</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link site-button-a site-draw" href="#">Products And Service</a>
+                        <a class="nav-link site-button-a site-draw" href="#">Blogs</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link site-button-a site-draw" href="/site/about">About Us</a>

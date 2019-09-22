@@ -28,6 +28,7 @@ class AppAsset extends AssetBundle
         'css/jquery-ui.theme.min.css',
         'css/dragula.css',
         'css/pell.css',
+        'css/fontawesome/css/all.css',
     ];
     public $js = [
         'js/angular.js',
@@ -36,6 +37,7 @@ class AppAsset extends AssetBundle
         'js/jquery-ui.min.js',
         'js/dragula.js',
         'js/pell.js',
+        'js/showdown.js',
 //        'js/jquery-3.4.1.min.js'
     ];
     public $depends = [
