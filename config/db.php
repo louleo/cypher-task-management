@@ -6,6 +6,7 @@ return [
     'username' => 'cypher',
     'password' => 'cypher',
     'charset' => 'utf8',
+    'port'=>'3306',
 
     // Schema cache options (for production environment)
     //'enableSchemaCache' => true,
