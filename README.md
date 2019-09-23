@@ -29,3 +29,10 @@
 Ref: https://mariadb.com/kb/en/library/configuring-mariadb-for-remote-client-access/
 
 # Cypher Deployment Setup
+
+
+
+# Some useful commends while deployment
+1. `composer install`
+2. `sudo apt-get install php-xml`
+3. `sudo a2enmod rewrite`
