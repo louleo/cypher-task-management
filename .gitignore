@@ -34,3 +34,6 @@ tests/_support/_generated
 
 #configration folder
 /config
+
+#index
+/web/index.php
