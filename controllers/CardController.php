@@ -249,6 +249,14 @@ class CardController extends Controller
         return ['flag'=>$successful];
     }
 
+    public function beforeAction($action)
+    {
+        if (in_array($action->id, ['github'])) {
+            $this->enableCsrfValidation = false;
+        }
+        return parent::beforeAction($action);
+    }
+
     public function actionUpdateGithub(){
         $request = Yii::$app->request;
         $headers = $request->headers;
