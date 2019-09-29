@@ -36,7 +36,7 @@ class Board extends \app\models\ActiveRecordVersion
     {
         return [
             [['name','code'], 'required'],
-            [['description'], 'string'],
+            [['description','github_repo'], 'string'],
             [['last_modified_user_id', 'created_user_id', 'active'], 'integer'],
             [['last_modified_date', 'created_date'], 'safe'],
             [['name'], 'string', 'max' => 255],
@@ -57,6 +57,7 @@ class Board extends \app\models\ActiveRecordVersion
             'last_modified_date' => 'Last Modified Date',
             'created_user_id' => 'Created User ID',
             'created_date' => 'Created Date',
+            'github_repo'=>'Github Link',
             'active' => 'Active',
         ];
     }

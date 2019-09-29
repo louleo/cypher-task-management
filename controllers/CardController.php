@@ -2,13 +2,16 @@
 
 namespace app\controllers;
 
+use app\models\Board;
 use app\models\BoardList;
 use app\models\CardUserAssign;
 use Yii;
 use app\models\Card;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\helpers\Json;
 use yii\web\Controller;
+use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -51,6 +54,13 @@ class CardController extends Controller
                             'user-assign',
                         ],
                         'roles'=>['@']
+                    ],
+                    [
+                        'allow'=>true,
+                        'actions'=>[
+                            'update-github'
+                        ],
+                        'roles'=>['@','?']
                     ],
                 ],
             ],
@@ -237,5 +247,46 @@ class CardController extends Controller
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return ['flag'=>$successful];
+    }
+
+    public function actionUpdateGithub(){
+        $request = Yii::$app->request;
+        $headers = $request->headers;
+        $sign = $headers->get('X-Hub-Signature');
+        $secret = 'sha1='.sha1("louleo1103cypher");
+        if ($sign == $secret){
+            if ($_POST && $_POST['payload']){
+                $payload = Json::decode($_POST['payload'], true);
+                if (isset($payload['action']) && $payload['action'] == 'opened'){
+                    $pr_title = $payload['pull_request']['title'];
+                    $pr_array = explode(' ',$pr_title);
+                    $pr_repo = $payload['html_url'];
+                    $board = Board::find(['github_repo'=>$pr_repo])->one();
+                    if (isset($board)){
+                        $board_code = strtolower($board->code);
+                        $card_number = 0;
+                        foreach ($pr_array as $pr_str){
+                            $pos = strpos(strtolower($pr_str),$board_code);
+                            if ($pos !== false){
+                                $card_number = preg_replace('/[^0-9]/','',substr($pr_str,$pos));
+                                break;
+                            }
+                        }
+                        $command = Yii::$app->db->createCommand();
+                        $command->sql = "select card.id from board left join list on board.id = list.board_id left join card on list.id = card.list_id where board.id = ".$board->id."and card.code = ".$card_number;
+                        $card_id = $command->query();
+                        if (isset($card_id) && !empty($card_id)){
+                            $card = $this->findModel($card_id[0]);
+                            $card->github_pr_link = $payload['pull_request']['url'];
+                            $card->save();
+                        }
+                    }
+                }
+            }
+        }
+
+        throw new HttpException(404,'The page you request is not found.');
+
+
     }
 }
