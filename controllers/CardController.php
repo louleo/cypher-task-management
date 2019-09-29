@@ -249,6 +249,15 @@ class CardController extends Controller
         return ['flag'=>$successful];
     }
 
+    public function beforeAction($action)
+    {
+        if (in_array($action->id, ['github'])) {
+            $this->enableCsrfValidation = false;
+        }
+        return parent::beforeAction($action);
+    }
+
+
     public function actionUpdateGithub(){
         $request = Yii::$app->request;
         $headers = $request->headers;
@@ -278,7 +287,10 @@ class CardController extends Controller
                         if (isset($card_id) && !empty($card_id)){
                             $card = $this->findModel($card_id[0]);
                             $card->github_pr_link = $payload['pull_request']['url'];
-                            $card->save();
+                            if ($card->save()){
+                                echo "Successfully updated!";
+                            }
+
                         }
                     }
                 }
