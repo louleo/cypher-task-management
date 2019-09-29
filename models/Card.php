@@ -86,7 +86,7 @@ class Card extends \app\models\ActiveRecordVersion
         $currentBoard = $currentList->board;
         $code = 1;
         foreach ($currentBoard->lists as $curList){
-            $newestCard = Card::findOne(['list_id'=>$curList->id,'code'=>SORT_DESC]);
+            $newestCard = Card::find(['list_id'=>$curList->id])->orderBy(['code'=>SORT_DESC])->one();
             if (isset($newestCard)){
                 if ($code <= $newestCard->code){
                     $code = $newestCard->code +1;
