@@ -257,6 +257,7 @@ class CardController extends Controller
         return parent::beforeAction($action);
     }
 
+
     public function actionUpdateGithub(){
         $request = Yii::$app->request;
         $headers = $request->headers;
@@ -289,6 +290,7 @@ class CardController extends Controller
                             if ($card->save()){
                                 echo "Successfully updated!";
                             }
+
                         }
                     }
                 }
