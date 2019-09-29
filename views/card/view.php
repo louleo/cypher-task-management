@@ -264,6 +264,18 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?= Html::a('Edit', ['update', 'id' => $model->id]) ?>
                         </div>
                     </div>
+                    <?php
+                        if(isset($model->github_pr_link)){
+                            ?>
+                            <div class="row card-sidebar-item-wrapper">
+                                <div class="col-lg-6 card-sidebar-item-title-wrapper">Github</div>
+                                <div class="col-lg-6 card-sidebar-item-content-wrapper">
+                                    <a href="<?=$model->github_pr_link?>" class="btn btn-info" style="width: 100%;" >Pathway</a>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                    ?>
                     <div class="row card-sidebar-item-wrapper">
                         <a href="/board/view/<?=$model->list->board->id?>" class="btn btn-secondary" style="width: 100%;" >Back To Board</a>
                     </div>

@@ -38,6 +38,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'end_date')->textInput() ?>
 
+    <?= $form->field($model, 'github_pr_link')->textInput() ?>
+
     <?= $form->field($model, 'total_used_time')->hiddenInput(['maxlength' => true])->label(false) ?>
 
     <div class="form-group">

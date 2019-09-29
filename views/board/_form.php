@@ -18,6 +18,8 @@ use yii\widgets\ActiveForm;
 
 <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
+<?= $form->field($model, 'github_repo')->textInput() ?>
+
 <?= $form->field($model, 'active')->checkbox() ?>
 
     <div class="form-group">
