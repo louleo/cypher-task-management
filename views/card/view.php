@@ -265,7 +265,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                     </div>
                     <?php
-                        if(isset($model->github_pr_link)){
+                        if(isset($model->github_pr_link) && !empty($model->github_pr_link)){
                             ?>
                             <div class="row card-sidebar-item-wrapper">
                                 <div class="col-lg-6 card-sidebar-item-title-wrapper">Github</div>
