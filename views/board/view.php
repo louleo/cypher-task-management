@@ -66,7 +66,7 @@ a.board-list-card {
     text-decoration: none;
     z-index: 0;
     color: #172b4d;
-    padding: 1em;
+    padding: .5em;
 }
 a.board-add-card{
     border-radius: 0 0 3px 3px;
@@ -85,6 +85,16 @@ a.board-add-card{
 a.board-list-header-edit{
     color: #6b778c;
     float: right;
+}
+div.board-list-card-assignee{
+    padding: .2em;
+    font-weight: bold;
+    background: #818182;
+    border-radius: 10px;
+    top: calc( 50% - 1em);
+    position: absolute;
+    right: .5em;
+    max-width: 20%;
 }
 </style>
 <?php
@@ -115,13 +125,13 @@ a.board-list-header-edit{
                             foreach ($list->cards as $card){
                                 ?>
                                 <a class="board-list-card js-board-list-card" data-card-id="<?=$card->id;?>" href="/card/view/<?=$card->id;?>" data-toggle="tooltip" data-placement="top" title="<?=$card->boardCode;?>">
-                                        <div style="display: inline-block;padding:.2em;">
+                                        <div style="display: inline-block;padding:.2em;max-width:85%;">
                                             <?=$card->title?>
                                         </div>
                                         <?php
                                         if (isset($card->assignee)){
                                             ?>
-                                            <div class="float-right" style="padding: .2em;font-weight: bold;background: #818182;border-radius: 10px;">
+                                            <div class="board-list-card-assignee">
                                                 <?=$card->assignee->userName;?>
                                             </div>
                                             <?php
