@@ -251,7 +251,7 @@ class CardController extends Controller
 
     public function beforeAction($action)
     {
-        if (in_array($action->id, ['github'])) {
+        if (in_array($action->id, ['update-github'])) {
             $this->enableCsrfValidation = false;
         }
         return parent::beforeAction($action);
@@ -285,9 +285,9 @@ class CardController extends Controller
                         $card_id = $command->queryOne();
                         if (isset($card_id) && !empty($card_id)){
                             $card = $this->findModel($card_id['id']);
-                            $card->github_pr_link = $payload['pull_request']['url'];
+                            $card->github_pr_link = $payload['pull_request']['html_url'];
                             if ($card->save()){
-                                echo "Successfully updated!";
+                                return "Successfully updated!";
                             }
                         }
                     }
