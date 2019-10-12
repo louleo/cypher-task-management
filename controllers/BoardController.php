@@ -154,8 +154,15 @@ class BoardController extends Controller
         $model = $this->findModel($id);
 
         if (Yii::$app->user->can('admin') || Yii::$app->user->id == $model->created_user_id || $model->isAdmin(Yii::$app->user->id)){
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load(Yii::$app->request->post())) {
+                if ($model->end_list_id == 0){
+                    $model->end_list_id = null;
+                }elseif ($model->start_list_id == 0){
+                    $model->start_list_id = null;
+                }
+                if ($model->save()){
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             }
 
             return $this->render('update', [
