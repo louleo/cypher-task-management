@@ -157,7 +157,8 @@ class BoardController extends Controller
             if ($model->load(Yii::$app->request->post())) {
                 if ($model->end_list_id == 0){
                     $model->end_list_id = null;
-                }elseif ($model->start_list_id == 0){
+                }
+                if ($model->start_list_id == 0){
                     $model->start_list_id = null;
                 }
                 if ($model->save()){
