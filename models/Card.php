@@ -142,11 +142,40 @@ class Card extends \app\models\ActiveRecordVersion
         }
         return null;
     }
+
+    public function getBoardUsersOptions(){
+        $users = $this->getBoardUsers();
+        $return = ['0'=>'------Select------'];
+        if (isset($users)){
+           foreach ($users as $user){
+               $return[$user->id] = $user->userName;
+           }
+           return $return;
+        }
+        return null;
+    }
+
     public function assignTo($user_id){
-        $cardUserAssign = new CardUserAssign();
-        $cardUserAssign->user_id = $user_id;
-        $cardUserAssign->card_id = $this->id;
-        return $cardUserAssign->save();
+        $user = User::find()->where(['id'=>$user_id])->one();
+        if (isset($user)){
+            $cardUserAssign = isset($this->cardUserAssign)? $this->cardUserAssign : new CardUserAssign();
+            $cardUserAssign->card_id = $this->id;
+            $cardUserAssign->user_id = $user_id;
+            return $cardUserAssign->save();
+        }else{
+            if (isset($this->cardUserAssign)){
+                return $this->cardUserAssign->delete();
+            }
+        }
+        return false;
+    }
+
+    public function getNewAssignee(){
+        return new CardUserAssign();
+    }
+
+    public function getCardUserAssign(){
+        return $this->hasOne(CardUserAssign::className(),['card_id'=>'id'])->where(['active'=>1]);
     }
 
     public function beforesave($insert)

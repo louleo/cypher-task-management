@@ -50,8 +50,8 @@ class CardUserAssign extends \app\models\ActiveRecordVersion
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'card_id' => 'Card ID',
+            'user_id' => 'Assignee',
+            'card_id' => 'Card',
             'last_modified_user_id' => 'Last Modified User ID',
             'last_modified_date' => 'Last Modified Date',
             'created_user_id' => 'Created User ID',
