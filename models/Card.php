@@ -112,6 +112,17 @@ class Card extends \app\models\ActiveRecordVersion
 
     public function moveTo($list_id){
         $this->list_id = $list_id;
+
+        $list = BoardList::find()->where(['id'=>$list_id])->one();
+        if (isset($list)){
+
+            $board = $list->board;
+            if ($board->start_list_id == $list->id){
+                $this->start_date = date('Y-m-d H:i:s');;
+            }elseif ($board->end_list_id == $list->id){
+                $this->end_date = date('Y-m-d H:i:s');;
+            }
+        }
         return $this->save();
     }
 
@@ -180,6 +191,7 @@ class Card extends \app\models\ActiveRecordVersion
 
     public function beforesave($insert)
     {
+        /* may not be used at current stage
         if (isset($this->end_date) && preg_match("/^(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])\/[0-9]{4}$/",$this->end_date)){
             $this->dateFormat('end_date');
         }else{
@@ -190,6 +202,7 @@ class Card extends \app\models\ActiveRecordVersion
         }else{
             $this->start_date = null;
         }
+        */
         if (isset($this->due_date) && preg_match("/^(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])\/[0-9]{4}$/",$this->due_date)){
             $this->dateFormat('due_date');
         }else{

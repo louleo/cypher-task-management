@@ -146,7 +146,6 @@ class ActiveRecordVersion extends ActiveRecord
     public function beforesave($insert){
         $this->last_modified_user_id = Yii::$app->user->id;
         $this->last_modified_date = date('Y-m-d H:i:s');
-        Yii::error($this->last_modified_date);
         if (!isset($this->created_date) || empty($this->created_date)){
             $this->created_date = date('Y-m-d H:i:s');
         }
@@ -176,9 +175,12 @@ class ActiveRecordVersion extends ActiveRecord
         $this->$attribute = date('Y-m-d H:i:s', strtotime($this->$attribute));
     }
 
-    protected function timeZoneTranslate($attribute,$timeZone='Asia/Hong_Kong'){
+    public function timeZoneTranslate($attribute,$timeZone='Asia/Hong_Kong',$dateOnly=false){
         $dateTime = new \DateTime($this->$attribute,new \DateTimeZone('UTC'));
         $dateTime->setTimezone(new \DateTimeZone($timeZone));
+        if ($dateOnly){
+            return $dateTime->format('Y-m-d');
+        }
         return $dateTime->format('Y-m-d H:i:s');
     }
 

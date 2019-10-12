@@ -37,7 +37,7 @@ class Board extends \app\models\ActiveRecordVersion
         return [
             [['name','code'], 'required'],
             [['description','github_repo'], 'string'],
-            [['last_modified_user_id', 'created_user_id', 'active'], 'integer'],
+            [['start_list_id','end_list_id','last_modified_user_id', 'created_user_id', 'active'], 'integer'],
             [['last_modified_date', 'created_date'], 'safe'],
             [['name'], 'string', 'max' => 255],
         ];
@@ -53,6 +53,8 @@ class Board extends \app\models\ActiveRecordVersion
             'name' => 'Name',
             'code' => 'Board Code',
             'description' => 'Description',
+            'start_list_id'=>'Start Marked List',
+            'end_list_id'=>'End Marked List',
             'last_modified_user_id' => 'Last Modified User ID',
             'last_modified_date' => 'Last Modified Date',
             'created_user_id' => 'Created User ID',
@@ -125,9 +127,26 @@ class Board extends \app\models\ActiveRecordVersion
         return $this->hasMany(User::className(),['id'=>'user_id'])->viaTable('board_user_assign',['board_id'=>'id']);
     }
 
+    public function getStartList(){
+        return $this->hasOne(BoardList::className(), ['id' => 'start_list_id'])->where(['active'=>1]);
+    }
+
+    public function getEndList(){
+        return $this->hasOne(BoardList::className(), ['id' => 'end_list_id'])->where(['active'=>1]);
+    }
+
     public function createNewBoardUserAssign(){
         $returnModel = new BoardUserAssign();
         $returnModel->board_id = $this->id;
         return $returnModel;
+    }
+
+    public function obtainListsOptions(){
+        $lists = $this->lists;
+        $return = [0=>'------SELECT-------'];
+        foreach ($lists as $list){
+            $return[$list->id] = $list->name;
+        }
+        return $return;
     }
 }

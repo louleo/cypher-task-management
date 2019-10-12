@@ -225,7 +225,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                     <div class="row card-sidebar-item-wrapper">
                         <div class="col-lg-6 card-sidebar-item-title-wrapper">Start Date</div>
-                        <div class="col-lg-6 card-sidebar-item-content-wrapper"><?=$model->start_date?></div>
+                        <div class="col-lg-6 card-sidebar-item-content-wrapper"><?=(isset($model->start_date))?$model->timeZoneTranslate('start_date','Asia/Hong_Kong',true):''?></div>
                     </div>
                     <div class="row card-sidebar-item-wrapper">
                         <div class="col-lg-6 card-sidebar-item-title-wrapper">Due Date</div>
@@ -233,7 +233,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                     <div class="row card-sidebar-item-wrapper">
                         <div class="col-lg-6 card-sidebar-item-title-wrapper">End Date</div>
-                        <div class="col-lg-6 card-sidebar-item-content-wrapper"><?=$model->end_date?></div>
+                        <div class="col-lg-6 card-sidebar-item-content-wrapper"><?=(isset($model->end_date))?$model->timeZoneTranslate('end_date','Asia/Hong_Kong',true):''?></div>
                     </div>
                     <div class="row card-sidebar-item-wrapper">
                         <div class="col-lg-6 card-sidebar-item-title-wrapper">Creator</div>
