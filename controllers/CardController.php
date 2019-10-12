@@ -107,24 +107,8 @@ class CardController extends Controller
     public function actionCreate()
     {
         $model = new Card();
-//        $successful = false;
-//        $data = null;
-//        if ($model->load(Yii::$app->request->post())) {
-//            try{
-//                $successful = $model->validate();
-//            } catch (\Exception $e){
-//                $data = $e->getMessage();
-//            }
-//
-//            if ($successful){
-//                $model->save();
-//            }
-//        }
-//
-//
-//        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-//
-//        return ['flag'=>$successful,'data'=>$data];
+        $cardUserAssign = new CardUserAssign();
+
         $list_id = Yii::$app->request->get('list_id');
 
         if (isset($list_id)){
@@ -135,6 +119,9 @@ class CardController extends Controller
 
         if (isset($model->code) && isset($model->list_id)){
             if ($model->load(Yii::$app->request->post()) && $model->save()){
+                if (isset($_POST['CardUserAssign']['user_id'])){
+                    $model->assignTo($_POST['CardUserAssign']['user_id']);
+                }
                 return $this->redirect(['board/view', 'id' => $model->list->board_id]);
             }
             return $this->render('create',['model'=>$model]);
@@ -167,7 +154,11 @@ class CardController extends Controller
     {
         $model = $this->findModel($id);
 
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if (isset($_POST['CardUserAssign']['user_id'])){
+                $model->assignTo($_POST['CardUserAssign']['user_id']);
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -227,15 +218,7 @@ class CardController extends Controller
         $card_id = $request->get('card_id');
         $user_id = $request->get('user_id');
 
-        $cardUserAssigns = CardUserAssign::findAll(['card_id'=>$card_id]);
-
-        if (isset($cardUserAssigns)){
-            foreach ($cardUserAssigns as $cardUserAssign){
-                $cardUserAssign->delete();
-            }
-        }
-
-        if (isset($card_id) && isset($user_id) && $user_id){
+        if (isset($card_id) && isset($user_id)){
             if ($this->findModel($card_id)->assignTo($user_id)){
                 $successful = true;
             }

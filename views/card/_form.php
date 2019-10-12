@@ -32,6 +32,8 @@ use yii\widgets\ActiveForm;
 
     <div id="description-editor" class="pell"></div>
 
+    <?= $form->field($model->getNewAssignee(),'user_id')->dropDownList($model->getBoardUsersOptions(),['value'=>isset($model->assignee)?$model->assignee->id:0]);?>
+
     <?= $form->field($model, 'due_date')->textInput() ?>
 
     <?= $form->field($model, 'github_pr_link')->textInput() ?>
