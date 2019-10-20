@@ -37,3 +37,6 @@ tests/_support/_generated
 
 #index
 /web/index.php
+
+#eclipse
+.metadata

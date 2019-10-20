@@ -17,7 +17,7 @@ if (isset($model->id)){
     $optionNubmber -= 1;
 }
 
-for ($i = 1; $i<= $optionNubmber; $i++){
+for ($i = $optionNubmber; $i>= 1; $i--){
     $orderOption[$i] = $i;
 }
 

@@ -119,6 +119,7 @@ class CardController extends Controller
 
         if (isset($model->code) && isset($model->list_id)){
             if ($model->load(Yii::$app->request->post()) && $model->save()){
+                $model->moveTo($list_id);
                 if (isset($_POST['CardUserAssign']['user_id'])){
                     $model->assignTo($_POST['CardUserAssign']['user_id']);
                 }
