@@ -153,11 +153,14 @@ class ListController extends Controller
     public function actionDelete($id)
     {
 //        $this->findModel($id)->deactivate();
-        if (count($this->findModel($id)->cards) == 0){
-            $this->findModel($id)->deactivate();
+        $list = $this->findModel($id);
+        $board_id = $list->board_id;
+        
+        if (count($list->cards) == 0){
+            $list->deactivate();
         }
 
-        return $this->redirect(['board/index']);
+        return $this->redirect(['board/view/'.$board_id]);
     }
 
     /**

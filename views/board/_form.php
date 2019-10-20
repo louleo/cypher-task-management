@@ -20,8 +20,8 @@ use yii\widgets\ActiveForm;
 
 <?php
     if (isset($model->lists)){
-        echo $form->field($model,'start_list_id')->dropDownList($model->obtainListsOptions(),['value'=>isset($model->start_list_id)? $model->start_list_id:0]);
-        echo $form->field($model,'end_list_id')->dropDownList($model->obtainListsOptions(),['value'=> isset($model->end_list_id)? $model->end_list_id:0]);
+        echo $form->field($model,'start_list_id')->dropDownList($model->obtainListsOptions(),['value'=>isset($model->start_list_id)? $model->start_list_id:null]);
+        echo $form->field($model,'end_list_id')->dropDownList($model->obtainListsOptions(),['value'=> isset($model->end_list_id)? $model->end_list_id:null]);
     }
 ?>
 
