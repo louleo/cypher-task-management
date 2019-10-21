@@ -41,10 +41,10 @@ class Card extends \app\models\ActiveRecordVersion
     {
         return [
             [['list_id', 'title', 'code'], 'required'],
-            [['list_id', 'last_modified_user_id', 'created_user_id', 'active'], 'integer'],
+            [['list_id','code', 'last_modified_user_id', 'created_user_id', 'active'], 'integer'],
             [['description','github_pr_link'], 'string'],
             [['due_date', 'start_date', 'end_date', 'last_modified_date', 'created_date'], 'safe'],
-            [['title', 'code', 'total_used_time'], 'string', 'max' => 255],
+            [['title', 'total_used_time'], 'string', 'max' => 255],
             [['list_id'], 'exist', 'skipOnError' => true, 'targetClass' => BoardList::className(), 'targetAttribute' => ['list_id' => 'id']],
         ];
     }
