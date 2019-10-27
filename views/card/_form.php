@@ -97,7 +97,7 @@ use yii\widgets\ActiveForm;
             selected: 'pell-button-selected'
         }
     });
-    editor.content.innerHTML = '<?=$model->description;?>'
+    editor.content.innerHTML = '<?=str_replace("'","\\'",$model->description);?>';
 </script>
 
 <script>
