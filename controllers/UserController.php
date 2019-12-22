@@ -87,12 +87,14 @@ class UserController extends Controller
     public function actionView($id)
     {
         if (Yii::$app->user->can('admin') || Yii::$app->user->id == $id){
+            $model = $this->findModel($id);
+
             if (!isset($model->contact)){
                 return $this->redirect(['edit','id'=>$id]);
             }
 
             return $this->render('view', [
-                'model' => $this->findModel($id),
+                'model' => $model,
             ]);
         }else{
             throw new HttpException(403,'You are not allowed to perform this action.');
