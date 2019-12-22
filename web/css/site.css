@@ -1,6 +1,26 @@
+:root{
+    --cypher-blue:#6493af;
+    --cypher-green:#7ea174;
+    --cypher-yellow:#f0c649;
+    --cypher-red:#f07544;
+    --cypher-gray:#6d4d56;
+}
+
 html,
 body {
     height: 100%;
+    font-family: 'Play';
+}
+
+h1{
+    font-size:3rem;
+    font-family: 'Indie Flower';
+}
+
+h2{
+    font-size: 2.5rem;
+    font-family: 'Oswald';
+    font-weight: bold;
 }
 
 .wrap {
@@ -302,7 +322,7 @@ header.site-masthead-about .site-masthead-content .site-masthead-subheading {
         padding-bottom: 10rem;
     }
     header.site-masthead .site-masthead-content .site-masthead-heading {
-        font-size: 6rem;
+        font-size: 4rem;
     }
     header.site-masthead .site-masthead-content .site-masthead-subheading {
         font-size: 3rem;
@@ -315,6 +335,6 @@ header.site-masthead-about .site-masthead-content .site-masthead-subheading {
         font-size: 6rem;
     }
     header.site-masthead-about .site-masthead-content .site-masthead-subheading {
-        font-size: 3rem;
+        font-size: 4rem;
     }
 }

@@ -172,7 +172,20 @@ class Card extends \app\models\ActiveRecordVersion
             $cardUserAssign = isset($this->cardUserAssign)? $this->cardUserAssign : new CardUserAssign();
             $cardUserAssign->card_id = $this->id;
             $cardUserAssign->user_id = $user_id;
-            return $cardUserAssign->save();
+            if ($cardUserAssign->save()){
+                if (isset($user->contact)){
+                    if (isset($user->contact->email)){
+                        Yii::$app->mailer->compose()
+                            ->setTo($user->contact->email)
+                            ->setFrom([Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']])
+                            ->setSubject("An issue has been assigned to you.")
+                            ->setHtmlBody("<p>Please visit <a href='http://www.cypher-x.net/card/view/$cardUserAssign->card_id'>here</a> for more information.</p>")
+                            ->send();
+                    }
+                }
+                return true;
+            }
+            return false;
         }else{
             if (isset($this->cardUserAssign)){
                 return $this->cardUserAssign->delete();

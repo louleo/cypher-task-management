@@ -21,6 +21,7 @@ SiteAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Oswald:200,300,400,500,600,700|Play:400,700&display=swap" rel="stylesheet">
     <?php $this->head() ?>
     <?php if(YII_ENV_PROD):?>
     <!-- Google Tag Manager -->
