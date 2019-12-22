@@ -88,7 +88,7 @@ class UserController extends Controller
     {
         if (Yii::$app->user->can('admin') || Yii::$app->user->id == $id){
             if (!isset($model->contact)){
-                return $this->redirect('edit',['model'=>$this->findModel($id)]);
+                return $this->redirect(['edit','id'=>$id]);
             }
 
             return $this->render('view', [
