@@ -21,12 +21,12 @@ class SiteAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
         'css/bootstrap.css',
         'css/jquery-ui.min.css',
         'css/jquery-ui.structure.min.css',
         'css/jquery-ui.theme.min.css',
         'css/fontawesome/css/all.css',
+        'css/site.css',
     ];
     public $depends = [
         'yii\web\YiiAsset',

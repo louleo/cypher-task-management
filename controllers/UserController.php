@@ -87,6 +87,10 @@ class UserController extends Controller
     public function actionView($id)
     {
         if (Yii::$app->user->can('admin') || Yii::$app->user->id == $id){
+            if (!isset($model->contact)){
+                return $this->redirect('edit',['model'=>$this->findModel($id)]);
+            }
+
             return $this->render('view', [
                 'model' => $this->findModel($id),
             ]);

@@ -10,7 +10,7 @@ $this->title = 'Cypher';
 <header class="site-masthead text-center text-white">
     <div class="site-masthead-content">
         <div class="container site-main-banner-text-container">
-            <h2 class="site-masthead-subheading mb-0" >Serve our small business with high-quality, affordable digital solutions.</h2>
+            <h1 class="site-masthead site-masthead-heading mb-0" >Serve our small business with high-quality, affordable digital solutions.</h1>
         </div>
     </div>
 </header>
@@ -103,7 +103,7 @@ if (false) {
 
 <section style="padding: 7em 0; text-align: center; color: #fff;" class="site-bg-grey-smoke">
     <div class="container">
-        <h1>Sharpen Your Future With Emerging Technologies</h1>
+        <h2>Sharpen Your Future With Emerging Technologies</h2>
         <div class="row">
                 <div class="site-entry-content"><p><strong>For over a decade we’ve been building better digital futures with
                             innovative &amp; outcome focused clients</strong>. From startups to multi-national

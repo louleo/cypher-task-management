@@ -41,6 +41,15 @@ AppAsset::register($this);
                     <li class="nav-item">
                         <a class="nav-link" style="padding: 14px" href="/board/lists">Board</a>
                     </li>
+                    <?php
+                        foreach (\Yii::$app->params['navModules'] as $name=>$link){
+                            ?>
+                            <li class="nav-item">
+                                <a class="nav-link" style="padding: 14px" href="/<?=$link?>"><?=$name?></a>
+                            </li>
+                    <?php
+                        }
+                    ?>
                     <li class="nav-item">
                         <a class="nav-link" style="padding: 14px" href="/note/">Note</a>
                     </li>
