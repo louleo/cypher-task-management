@@ -87,12 +87,15 @@ class UserController extends Controller
     public function actionView($id)
     {
         if (Yii::$app->user->can('admin') || Yii::$app->user->id == $id){
+
+            $model = $this->findModel($id);
+
             if (!isset($model->contact)){
-                return $this->redirect('edit',['model'=>$this->findModel($id)]);
+                return $this->redirect(['edit','id'=>$id]);
             }
 
             return $this->render('view', [
-                'model' => $this->findModel($id),
+                'model' => $model,
             ]);
         }else{
             throw new HttpException(403,'You are not allowed to perform this action.');
@@ -146,7 +149,9 @@ class UserController extends Controller
                 if (!empty($_POST['User']['password'])){
                     $model->password = password_hash($_POST['User']['password'],1);
                 }
-                $model->dob = $_POST['User']['dob'];
+                if (isset($_POST['User']['dob']) && preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $_POST['User']['dob'])) {
+                    $model->dob = $_POST['User']['dob'];
+                }
                 $model->active = $_POST['User']['active'];
                 if ($model->save()){
                     $contact->load(Yii::$app->request->post());

@@ -39,6 +39,6 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
     <script>
-        $('#user-dob').datepicker();
+        $('#user-dob').datepicker({dateFormat:'yy-mm-dd'});
     </script>
 </div>
