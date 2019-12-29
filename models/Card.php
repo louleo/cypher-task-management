@@ -26,14 +26,20 @@ use Yii;
  */
 class Card extends \app\models\ActiveRecordVersion
 {
+
+    protected static $projectID;
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
+        Card::cardTableName();
         return 'card';
     }
 
+    public function cardTableName(){
+
+    }
     /**
      * {@inheritdoc}
      */
@@ -86,7 +92,7 @@ class Card extends \app\models\ActiveRecordVersion
         $currentBoard = $currentList->board;
         $code = 1;
         foreach ($currentBoard->lists as $curList){
-            $newestCard = Card::find(['list_id'=>$curList->id])->orderBy(['code'=>SORT_DESC])->one();
+            $newestCard = Card::find()->where(['list_id'=>$curList->id])->orderBy(['code'=>SORT_DESC])->one();
             if (isset($newestCard)){
                 if ($code <= $newestCard->code){
                     $code = $newestCard->code +1;
@@ -177,7 +183,7 @@ class Card extends \app\models\ActiveRecordVersion
                     if (isset($user->contact->email)){
                         Yii::$app->mailer->compose()
                             ->setTo($user->contact->email)
-                            ->setFrom([Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']])
+                            ->setFrom([Yii::$app->params['senderEmail'] => 'Cypher Administration'])
                             ->setSubject("An issue has been assigned to you.")
                             ->setHtmlBody("<p>Please visit <a href='http://www.cypher-x.net/card/view/$cardUserAssign->card_id'>here</a> for more information.</p>")
                             ->send();
