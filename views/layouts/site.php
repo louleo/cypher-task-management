@@ -43,6 +43,7 @@ SiteAsset::register($this);
     </script>
     <?php endif; ?>
 </head>
+
 <body>
 <?php if(YII_ENV_PROD):?>
 <!-- Google Tag Manager (noscript) -->
@@ -51,7 +52,40 @@ SiteAsset::register($this);
 <!-- End Google Tag Manager (noscript) -->
 <?php endif; ?>
 <?php $this->beginBody() ?>
+<?php
+    if (isset($this->params['index'])){
+        ?>
+        <div class="w-100 h-100 bg-dark index-entry">
+            <div class="index-entry-left"></div>
+            <div class="index-entry-right"></div>
+            <div style="background-image: url('/img/1.jpg');width: 50%;" class="h-100 index-entry-img mx-auto"></div>
+            <div style="background-image: url('/img/2.jpg');width: 50%;" class="h-100 index-entry-img mx-auto"></div>
+            <div style="background-image: url('/img/ji.jpg');width: 70%;" class="h-100 index-entry-img mx-auto"></div>
+            <div style="background-image: url('/img/3.jpg');width: 100%;" class="h-100 index-entry-img mx-auto"></div>
+            <div style="background-image: url('/img/5.jpg');width: 100%;" class="h-100 index-entry-img mx-auto"></div>
+            <div style="background-image: url('/img/6.jpg');width: 100%;" class="h-100 index-entry-img mx-auto"></div>
+            <div style="background-image: url('/img/4.jpg');width: 100%;" class="h-100 index-entry-img mx-auto"></div>
+            <audio src="/audio/mix_12s.mp3" controls="true" autoplay="true" class="d-none"></audio>
+            <script>
+                var timing =[2.5,4.5,6.5,8.5,10,11.5,12.5];
+                setTimeout(function(){
+                    $('.page-body').removeClass('d-none');
+                    $('.index-entry').remove();
+                },12000);
+                $('.index-entry-img').each(function(index){
+                   setTimeout(function () {
+                       $($('.index-entry-img')[index]).hide();
+                   },1000*timing[index]);
+                });
+                $('.index-entry-left').addClass('entering');
+                $('.index-entry-right').addClass('entering');
+            </script>
+        </div>
+<?php
+    }
+?>
 
+<div class="page-body <?= isset($this->params['index'])?"d-none":"" ?>">
 <div class="wrap">
     <nav class="navbar navbar-expand-lg navbar-dark site-navbar-custom fixed-top">
         <div class="container-fluid" style="padding: 0;">
@@ -102,7 +136,7 @@ SiteAsset::register($this);
         <p class="m-0 text-center text-white small" style="font-size: 1em;">Copyright &copy; Cypher Pty. Ltd. 2019</p>
     </div>
 </footer>
-
+</div>
 <?php $this->endBody() ?>
 </body>
 </html>
