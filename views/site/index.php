@@ -3,10 +3,9 @@
 /* @var $this yii\web\View */
 
 $this->title = 'Cypher';
+$this->params['index'] = true;
 ?>
 
-<?php
-?>
 <header class="site-masthead text-center text-white">
     <div class="site-masthead-content">
         <div class="container site-main-banner-text-container">
@@ -95,8 +94,6 @@ if (false) {
         </div>
     </section>
 
-
-
     <?php
 }
 ?>
@@ -117,3 +114,7 @@ if (false) {
         </div>
     </div>
 </section>
+
+<script>
+
+</script>

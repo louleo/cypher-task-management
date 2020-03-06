@@ -315,6 +315,35 @@ header.site-masthead-about .site-masthead-content .site-masthead-subheading {
     font-size: 1.5rem;
 }
 
+.index-entry-img{
+    background-position: center;
+    background-size: cover;
+}
+
+.index-entry{
+    transition: all 12s linear;
+}
+
+.index-entry-left, .index-entry-right {
+    width: 40%;
+    height: 100%;
+    position: absolute;
+    background: black;
+    transition: all 12s linear;
+    z-index: 10;
+}
+
+.index-entry-left.entering, .index-entry-right.entering{
+    width:0;
+}
+
+.index-entry-right{
+    right: 0;
+}
+
+.index-entry-left{
+    left: 0;
+}
 
 @media (min-width: 992px) {
     header.site-masthead {
