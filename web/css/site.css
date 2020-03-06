@@ -318,10 +318,12 @@ header.site-masthead-about .site-masthead-content .site-masthead-subheading {
 .index-entry-img{
     background-position: center;
     background-size: cover;
+    background-image: url('/img/1.jpg');
+    width: 60%;
 }
 
 .index-entry{
-    transition: all 12s linear;
+    transition: all 13s linear;
 }
 
 .index-entry-left, .index-entry-right {

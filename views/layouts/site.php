@@ -58,27 +58,31 @@ SiteAsset::register($this);
         <div class="w-100 h-100 bg-dark index-entry">
             <div class="index-entry-left"></div>
             <div class="index-entry-right"></div>
-            <div style="background-image: url('/img/1.jpg');width: 50%;" class="h-100 index-entry-img mx-auto"></div>
-            <div style="background-image: url('/img/2.jpg');width: 50%;" class="h-100 index-entry-img mx-auto"></div>
-            <div style="background-image: url('/img/ji.jpg');width: 70%;" class="h-100 index-entry-img mx-auto"></div>
-            <div style="background-image: url('/img/3.jpg');width: 100%;" class="h-100 index-entry-img mx-auto"></div>
-            <div style="background-image: url('/img/5.jpg');width: 100%;" class="h-100 index-entry-img mx-auto"></div>
-            <div style="background-image: url('/img/6.jpg');width: 100%;" class="h-100 index-entry-img mx-auto"></div>
-            <div style="background-image: url('/img/4.jpg');width: 100%;" class="h-100 index-entry-img mx-auto"></div>
-            <audio src="/audio/mix_12s.mp3" controls="true" autoplay="true" class="d-none"></audio>
+            <div class="h-100 index-entry-img mx-auto"></div>
             <script>
-                var timing =[2.5,4.5,6.5,8.5,10,11.5,12.5];
-                setTimeout(function(){
-                    $('.page-body').removeClass('d-none');
-                    $('.index-entry').remove();
-                },12000);
-                $('.index-entry-img').each(function(index){
-                   setTimeout(function () {
-                       $($('.index-entry-img')[index]).hide();
-                   },1000*timing[index]);
+                $(document).ready(function(){
+                    var audio = new Audio('/audio/mix_12s.mp3');
+                    audio.play();
+                    var timing =[3,5,7,8.5,11,12];
+                    var urls = ['/img/2.jpg','/img/ji.jpg','/img/3.jpg','/img/5.jpg','/img/6.jpg','/img/4.jpg'];
+                    setTimeout(function(){
+                        $('.page-body').removeClass('d-none');
+                        $('.index-entry').remove();
+                    },12000);
+                    for (var i = 0; i< timing.length; i++){
+                        setTimeout(function (url,ti) {
+                            $('.index-entry-img').css('background-image',"url('"+url+"')");
+                            if (ti == 1){
+                                $('.index-entry-img').css('width',"70%");
+                            }
+                            if (ti > 1){
+                                $('.index-entry-img').css('width',"100%");
+                            }
+                        },1000*timing[i],urls[i],i);
+                    };
+                    $('.index-entry-left').addClass('entering');
+                    $('.index-entry-right').addClass('entering');
                 });
-                $('.index-entry-left').addClass('entering');
-                $('.index-entry-right').addClass('entering');
             </script>
         </div>
 <?php
